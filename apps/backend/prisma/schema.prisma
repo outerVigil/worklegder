@@ -1,0 +1,406 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ==============================
+// ENUMS
+// ==============================
+
+enum UserRole {
+  SUPER_ADMIN
+  SUB_ADMIN
+  EMPLOYEE
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+}
+
+enum EmploymentStatus {
+  ACTIVE
+  INACTIVE
+  TERMINATED
+}
+
+// ==============================
+// USER MODEL
+// ==============================
+
+model User {
+  id           String     @id @default(uuid()) @db.Uuid
+  name         String
+  email        String     @unique
+  passwordHash String
+  role         UserRole   @default(EMPLOYEE)
+  status       UserStatus @default(ACTIVE)
+
+  employee Employee?
+
+  // Employees assigned to this sub-admin
+  assignedEmployees Employee[] @relation("SubAdminEmployees")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  reviewedAttendanceAdjustments AttendanceAdjustment[] @relation("AttendanceAdjustmentReviewer")
+  reviewedFinanceRequests       FinanceRequest[]       @relation("FinanceRequestReviewer")
+  auditLogs                     AuditLog[]             @relation("AuditLogActor")
+  notifications                 Notification[]
+  refreshSessions               RefreshSession[]
+
+  @@index([role, status])
+  @@map("users")
+}
+
+// ==============================
+// EMPLOYEE MODEL
+// ==============================
+
+model Employee {
+  id           String @id @default(uuid()) @db.Uuid
+  userId       String @unique @db.Uuid
+  employeeCode String @unique
+
+  department  String?
+  designation String?
+  joiningDate DateTime? @db.Date
+
+  employmentStatus EmploymentStatus @default(ACTIVE)
+
+  // Optional sub-admin assignment
+  assignedSubAdminId String? @db.Uuid
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  assignedSubAdmin User?    @relation("SubAdminEmployees", fields: [assignedSubAdminId], references: [id], onDelete: SetNull)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  shiftAssignments      EmployeeShiftAssignment[]
+  attendanceSessions    AttendanceSession[]
+  attendanceAdjustments AttendanceAdjustment[]
+  financeAccount        FinanceAccount?
+  financeRequests       FinanceRequest[]
+
+  @@index([assignedSubAdminId])
+  @@index([employmentStatus])
+  @@map("employees")
+}
+
+enum AttendanceStatus {
+  OPEN
+  COMPLETED
+  FLAGGED
+}
+
+enum AdjustmentStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum AdjustmentType {
+  MISSING_CHECK_IN
+  MISSING_CHECK_OUT
+  CORRECT_CHECK_IN
+  CORRECT_CHECK_OUT
+  CORRECT_BOTH
+}
+
+enum FinanceAccountType {
+  ASSET
+  LIABILITY
+  EQUITY
+  INCOME
+  EXPENSE
+}
+
+enum FinanceRequestType {
+  EXPENSE
+  REIMBURSEMENT
+  ADVANCE
+  OTHER
+}
+
+enum FinanceRequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  CANCELLED
+}
+
+enum LedgerTransactionStatus {
+  POSTED
+  REVERSED
+}
+
+enum NotificationType {
+  GENERAL
+  ATTENDANCE
+  FINANCE
+  APPROVAL
+  SYSTEM
+}
+
+model Shift {
+  id          String  @id @default(uuid()) @db.Uuid
+  name        String
+  startTime   String
+  endTime     String
+  gracePeriod Int     @default(0)
+  isActive    Boolean @default(true)
+
+  assignments EmployeeShiftAssignment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("shifts")
+}
+
+model EmployeeShiftAssignment {
+  id            String    @id @default(uuid()) @db.Uuid
+  employeeId    String    @db.Uuid
+  shiftId       String    @db.Uuid
+  effectiveFrom DateTime  @db.Date
+  effectiveTo   DateTime? @db.Date
+
+  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  shift    Shift    @relation(fields: [shiftId], references: [id], onDelete: Restrict)
+
+  createdAt DateTime @default(now())
+
+  @@index([employeeId, effectiveFrom, effectiveTo])
+  @@index([shiftId])
+  @@map("employee_shift_assignments")
+}
+
+model AttendanceSession {
+  id         String           @id @default(uuid()) @db.Uuid
+  employeeId String           @db.Uuid
+  status     AttendanceStatus @default(OPEN)
+
+  checkInAt  DateTime  @default(now())
+  checkOutAt DateTime?
+
+  checkInLatitude  Decimal? @db.Decimal(10, 7)
+  checkInLongitude Decimal? @db.Decimal(10, 7)
+
+  checkOutLatitude  Decimal? @db.Decimal(10, 7)
+  checkOutLongitude Decimal? @db.Decimal(10, 7)
+
+  checkInAccuracy  Decimal? @db.Decimal(8, 2)
+  checkOutAccuracy Decimal? @db.Decimal(8, 2)
+
+  notes String?
+
+  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+
+  adjustments AttendanceAdjustment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([employeeId, checkInAt])
+  @@index([employeeId, status])
+  @@map("attendance_sessions")
+}
+
+model AttendanceAdjustment {
+  id         String  @id @default(uuid()) @db.Uuid
+  employeeId String  @db.Uuid
+  sessionId  String? @db.Uuid
+
+  type   AdjustmentType
+  status AdjustmentStatus @default(PENDING)
+
+  proposedCheckInAt  DateTime?
+  proposedCheckOutAt DateTime?
+
+  reason String
+
+  reviewedById String?   @db.Uuid
+  reviewedAt   DateTime?
+  reviewNote   String?
+
+  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+
+  session AttendanceSession? @relation(fields: [sessionId], references: [id], onDelete: SetNull)
+
+  reviewedBy User? @relation("AttendanceAdjustmentReviewer", fields: [reviewedById], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([employeeId, status])
+  @@index([reviewedById])
+  @@map("attendance_adjustments")
+}
+
+model FinanceAccount {
+  id          String             @id @default(uuid()) @db.Uuid
+  name        String
+  code        String             @unique
+  accountType FinanceAccountType
+
+  employeeId String? @unique @db.Uuid
+  currency   String  @default("INR")
+  isActive   Boolean @default(true)
+
+  employee Employee?     @relation(fields: [employeeId], references: [id], onDelete: Restrict)
+  entries  LedgerEntry[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([accountType, isActive])
+  @@map("finance_accounts")
+}
+
+model LedgerTransaction {
+  id          String                  @id @default(uuid()) @db.Uuid
+  reference   String                  @unique
+  description String
+  status      LedgerTransactionStatus @default(POSTED)
+
+  currency   String    @default("INR")
+  postedAt   DateTime  @default(now())
+  reversedAt DateTime?
+
+  entries        LedgerEntry[]
+  financeRequest FinanceRequest?
+
+  createdAt DateTime @default(now())
+
+  @@index([postedAt])
+  @@index([status, postedAt])
+  @@map("ledger_transactions")
+}
+
+model LedgerEntry {
+  id            String @id @default(uuid()) @db.Uuid
+  transactionId String @db.Uuid
+  accountId     String @db.Uuid
+
+  debitAmount  Decimal @default(0) @db.Decimal(18, 2)
+  creditAmount Decimal @default(0) @db.Decimal(18, 2)
+
+  description String?
+
+  transaction LedgerTransaction @relation(fields: [transactionId], references: [id], onDelete: Restrict)
+  account     FinanceAccount    @relation(fields: [accountId], references: [id], onDelete: Restrict)
+
+  createdAt DateTime @default(now())
+
+  @@index([accountId, createdAt])
+  @@index([transactionId])
+  @@map("ledger_entries")
+}
+
+model FinanceRequest {
+  id         String @id @default(uuid()) @db.Uuid
+  employeeId String @db.Uuid
+
+  type   FinanceRequestType
+  status FinanceRequestStatus @default(PENDING)
+
+  amount      Decimal @db.Decimal(18, 2)
+  currency    String  @default("INR")
+  description String
+  reason      String?
+
+  reviewedById String?   @db.Uuid
+  reviewedAt   DateTime?
+  reviewNote   String?
+
+  ledgerTransactionId String? @unique @db.Uuid
+
+  employee Employee @relation(fields: [employeeId], references: [id], onDelete: Restrict)
+
+  reviewedBy User? @relation("FinanceRequestReviewer", fields: [reviewedById], references: [id], onDelete: SetNull)
+
+  ledgerTransaction LedgerTransaction? @relation(fields: [ledgerTransactionId], references: [id], onDelete: Restrict)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([employeeId, status])
+  @@index([reviewedById])
+  @@index([createdAt])
+  @@map("finance_requests")
+}
+
+model AuditLog {
+  id      String  @id @default(uuid()) @db.Uuid
+  actorId String? @db.Uuid
+
+  action     String
+  entityType String
+  entityId   String?
+
+  description String?
+  metadata    Json?
+
+  ipAddress String?
+  userAgent String?
+
+  actor User? @relation("AuditLogActor", fields: [actorId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+
+  @@index([actorId, createdAt])
+  @@index([entityType, entityId])
+  @@index([action, createdAt])
+  @@map("audit_logs")
+}
+
+model Notification {
+  id     String @id @default(uuid()) @db.Uuid
+  userId String @db.Uuid
+
+  type    NotificationType @default(GENERAL)
+  title   String
+  message String
+
+  isRead Boolean   @default(false)
+  readAt DateTime?
+
+  link String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@index([userId, isRead, createdAt])
+  @@index([createdAt])
+  @@map("notifications")
+}
+
+model RefreshSession {
+  id     String @id @default(uuid()) @db.Uuid
+  userId String @db.Uuid
+
+  tokenHash String @unique
+  familyId  String @db.Uuid
+
+  expiresAt DateTime
+  revokedAt DateTime?
+
+  ipAddress String?
+  userAgent String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@index([userId, expiresAt])
+  @@index([familyId])
+  @@map("refresh_sessions")
+}

@@ -1,0 +1,6 @@
+{
+  "name": "WorkLedger",
+  "description": "Employee management, attendance check-in with GPS, and financial ledger tracking application.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

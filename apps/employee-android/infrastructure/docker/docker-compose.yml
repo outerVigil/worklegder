@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: workledger-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: workledger_user
+      POSTGRES_PASSWORD: workledger_secure_password
+      POSTGRES_DB: workledger_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U workledger_user -d workledger_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ../../
+      dockerfile: infrastructure/docker/Dockerfile
+    container_name: workledger-backend
+    restart: always
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      PORT: 3000
+      DATABASE_URL: postgresql://workledger_user:workledger_secure_password@postgres:5432/workledger_db?schema=public
+      JWT_ACCESS_SECRET: your_jwt_access_secret_key_32_bytes_long
+      JWT_REFRESH_SECRET: your_jwt_refresh_secret_key_32_bytes_long
+      BANK_ENCRYPTION_KEY: your_32_character_aes_encryption_key
+      AWS_S3_BUCKET: workledger-private-uploads
+      AWS_REGION: us-east-1
+    ports:
+      - "3000:3000"
+
+volumes:
+  pgdata:

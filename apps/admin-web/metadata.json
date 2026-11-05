@@ -1,0 +1,6 @@
+{
+  "name": "Workforce & Finance Enterprise Admin Portal",
+  "description": "Unified Super Admin & Sub-Admin Web Platform for employee management, GPS attendance tracking, financial allocations, and entry approval workflows.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
