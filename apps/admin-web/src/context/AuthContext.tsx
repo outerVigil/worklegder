@@ -26,38 +26,95 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   });
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  useEffect(() => {
-    const verifySession = async () => {
-      const storedToken = localStorage.getItem('auth_token');
-      if (storedToken) {
-        try {
-          const profile = await authApi.getCurrentUser();
-          setUser(profile);
-          localStorage.setItem('auth_user', JSON.stringify(profile));
-        } catch (err) {
-          console.warn('Session verification failed, logging out', err);
-          setUser(null);
-          setToken(null);
-          localStorage.removeItem('auth_token');
-          localStorage.removeItem('refresh_token');
-          localStorage.removeItem('auth_user');
-        }
-      }
-      setIsLoading(false);
-    };
+  // useEffect(() => {
+  //   const verifySession = async () => {
+  //     const storedToken = localStorage.getItem('auth_token');
+  //     if (storedToken) {
+  //       try {
+  //         const profile = await authApi.getCurrentUser();
+  //         setUser(profile);
+  //         localStorage.setItem('auth_user', JSON.stringify(profile));
+  //       } catch (err) {
+  //         console.warn('Session verification failed, logging out', err);
+  //         setUser(null);
+  //         setToken(null);
+  //         localStorage.removeItem('auth_token');
+  //         localStorage.removeItem('refresh_token');
+  //         localStorage.removeItem('auth_user');
+  //       }
+  //     }
+  //     setIsLoading(false);
+  //   };
 
-    verifySession();
-  }, []);
+  //   verifySession();
+  // }, []);
+
+
+  useEffect(() => {
+  const savedUser = localStorage.getItem('auth_user');
+  const savedToken = localStorage.getItem('auth_token');
+
+  if (savedUser && savedToken?.startsWith('demo-token-')) {
+    setUser(JSON.parse(savedUser));
+    setToken(savedToken);
+  }
+
+  setIsLoading(false);
+}, []);
 
   const login = async (email: string, password: string): Promise<User> => {
-    const data = await authApi.login(email, password);
-    localStorage.setItem('auth_token', data.accessToken);
-    localStorage.setItem('refresh_token', data.refreshToken);
-    localStorage.setItem('auth_user', JSON.stringify(data.user));
-    setToken(data.accessToken);
-    setUser(data.user);
-    return data.user;
+  // Temporary demo authentication
+  await new Promise(resolve => setTimeout(resolve, 500));
+
+  const demoUsers: Record<string, Partial<User>> = {
+    'superadmin@enterprise.com': {
+      id: 'demo-superadmin',
+      email: 'superadmin@enterprise.com',
+      role: 'SUPER_ADMIN',
+      name: 'Alexander Wright',
+    },
+    'subadmin.north@enterprise.com': {
+      id: 'demo-subadmin-north',
+      email: 'subadmin.north@enterprise.com',
+      role: 'SUB_ADMIN',
+      name: 'Sarah Jenkins',
+    },
+    'subadmin.south@enterprise.com': {
+      id: 'demo-subadmin-south',
+      email: 'subadmin.south@enterprise.com',
+      role: 'SUB_ADMIN',
+      name: 'Marcus Vance',
+    },
+    'employee@enterprise.com': {
+      id: 'demo-employee',
+      email: 'employee@enterprise.com',
+      role: 'EMPLOYEE',
+      name: 'Demo Employee',
+    },
   };
+
+  const demoUser = demoUsers[email.toLowerCase()];
+
+  if (!demoUser || password !== 'password123') {
+    throw new Error('Invalid demo credentials');
+  }
+
+  const user = {
+    ...demoUser,
+    status: 'ACTIVE',
+  } as User;
+
+  // Fake token for frontend demonstration only
+  const demoToken = `demo-token-${user.id}`;
+
+  localStorage.setItem('auth_token', demoToken);
+  localStorage.setItem('auth_user', JSON.stringify(user));
+
+  setToken(demoToken);
+  setUser(user);
+
+  return user;
+};
 
   const logout = async () => {
     try {
