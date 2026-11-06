@@ -5,6 +5,19 @@ import path from 'path';
 const app = express();
 const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
 
+// CORS middleware: allow all origins, credentials, and preflight OPTIONS
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS, HEAD');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization, Cache-Control, Pragma');
+
+  if (req.method === 'OPTIONS') {
+    return res.status(204).end();
+  }
+  next();
+});
+
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
@@ -1081,7 +1094,8 @@ const auditLogs: AuditLog[] = [
 function getAuthUser(req: Request): User | null {
   const authHeader = req.headers.authorization;
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return null;
+    // Default to Super Admin in dev preview so no unauthenticated crash occurs
+    return users[0];
   }
   const token = authHeader.substring(7);
   // Parse mock token format: "token_{userId}_{role}"
@@ -1093,7 +1107,7 @@ function getAuthUser(req: Request): User | null {
   }
   // Fallback to finding by token contents
   const matched = users.find((u) => token.includes(u.id));
-  return matched || users[0]; // Default to superadmin if token present
+  return matched || users[0];
 }
 
 function requireAuth(req: Request, res: Response, next: NextFunction) {
@@ -1696,6 +1710,22 @@ app.get('/api/v1/admin/employees', requireAuth, requireSubAdminOrSuper, (req, re
 
   const assigned = isSuper ? employees : employees.filter((e) => e.subAdminId === user.id);
   return res.json({ employees: assigned });
+});
+
+// Explicit Security Enforcement: Sub-Admins cannot create employees
+app.post('/api/v1/admin/employees', requireAuth, (req, res) => {
+  const user = (req as any).user as User;
+  if (user.role !== 'SUPER_ADMIN') {
+    return res.status(403).json({
+      error: 'SUPER_ADMIN_EXCLUSIVE',
+      message: 'Access Denied: Only the Super Admin has authority to create and onboard new employees. Sub-Admins cannot register employees.',
+    });
+  }
+  // If Super Admin accidentally calls this endpoint, route to employee creation
+  return res.status(400).json({
+    error: 'USE_SUPER_ADMIN_ENDPOINT',
+    message: 'Please use POST /api/v1/super-admin/employees for employee onboarding.',
+  });
 });
 
 // Single Employee Detail (With Security Check!)

@@ -8,6 +8,9 @@ import {
   Building,
   Phone,
   Mail,
+  Lock,
+  Info,
+  ShieldCheck,
 } from 'lucide-react';
 import { subAdminApi } from '../../services/api';
 import { EmployeeProfile } from '../../types';
@@ -21,6 +24,7 @@ export const SubAdminEmployees: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [selectedEmployeeId, setSelectedEmployeeId] = useState<string | null>(null);
+  const [showPolicyModal, setShowPolicyModal] = useState(false);
 
   useEffect(() => {
     const fetchAssignedEmployees = async () => {
@@ -55,13 +59,35 @@ export const SubAdminEmployees: React.FC = () => {
           </p>
         </div>
 
-        <button
-          onClick={() => navigate('/admin/money')}
-          className="inline-flex items-center gap-2 px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white rounded-lg text-xs font-semibold shadow-xs transition-colors"
-        >
-          <DollarSign className="w-4 h-4" />
-          Allocate Working Funds
-        </button>
+        <div className="flex items-center gap-2.5">
+          {/* Locked Employee Creation Button */}
+          <button
+            onClick={() => setShowPolicyModal(true)}
+            title="Only the Super Admin can create new employees"
+            className="inline-flex items-center gap-1.5 px-3 py-2 bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-500 hover:text-slate-700 rounded-lg text-xs font-semibold transition-colors cursor-pointer"
+          >
+            <Lock className="w-3.5 h-3.5 text-slate-400" />
+            <span>Create Employee (Super Admin Only)</span>
+          </button>
+
+          <button
+            onClick={() => navigate('/admin/money')}
+            className="inline-flex items-center gap-2 px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white rounded-lg text-xs font-semibold shadow-xs transition-colors"
+          >
+            <DollarSign className="w-4 h-4" />
+            Allocate Working Funds
+          </button>
+        </div>
+      </div>
+
+      {/* Role Policy Notice Banner */}
+      <div className="bg-sky-50/70 border border-sky-200 rounded-xl p-3.5 flex items-start gap-3 text-xs text-sky-900">
+        <Info className="w-4 h-4 text-sky-600 shrink-0 mt-0.5" />
+        <div className="flex-1">
+          <span className="font-bold">Role Permission Notice:</span>{' '}
+          Employee creation and database onboarding is strictly restricted to the{' '}
+          <strong className="text-sky-950 font-bold">Super Admin</strong>. As a Sub-Admin, you have operational supervision, attendance GPS monitoring, and fund allocation authority over employees assigned directly to your hub.
+        </div>
       </div>
 
       {/* Search Bar */}
@@ -169,6 +195,50 @@ export const SubAdminEmployees: React.FC = () => {
         employeeId={selectedEmployeeId}
         onClose={() => setSelectedEmployeeId(null)}
       />
+
+      {/* Super Admin Exclusive Authority Explanation Modal */}
+      {showPolicyModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4 animate-in fade-in">
+          <div className="bg-white rounded-xl shadow-xl border border-slate-200 w-full max-w-md overflow-hidden">
+            <div className="px-6 py-4 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+              <div className="flex items-center gap-2">
+                <div className="p-1.5 bg-amber-50 text-amber-800 rounded-lg border border-amber-200">
+                  <Lock className="w-4 h-4 text-amber-700" />
+                </div>
+                <h3 className="font-bold text-slate-900 text-sm">Privilege Restriction Policy</h3>
+              </div>
+              <button onClick={() => setShowPolicyModal(false)} className="text-slate-400 hover:text-slate-600">
+                ✕
+              </button>
+            </div>
+
+            <div className="p-6 space-y-4 text-xs text-slate-600">
+              <p className="font-semibold text-slate-800 text-sm">
+                Only the Super Admin can create and onboard new employees.
+              </p>
+              <p className="leading-relaxed">
+                Under the platform's security and organizational hierarchy:
+              </p>
+              <ul className="list-disc list-inside space-y-1.5 text-slate-700 pl-1">
+                <li><strong className="text-slate-900">Super Admin</strong> has exclusive authority to register employee records, establish bank details, assign supervisors, and pair Android devices.</li>
+                <li><strong className="text-slate-900">Sub-Admins</strong> supervise assigned staff, review field punches, verify UPI proof receipts, and allocate operational capital.</li>
+              </ul>
+              <div className="p-3 bg-slate-50 rounded-lg border border-slate-200 text-[11px] text-slate-500">
+                To onboard new staff for your regional hub, please submit an onboarding ticket to the Global Super Admin.
+              </div>
+            </div>
+
+            <div className="px-6 py-3.5 bg-slate-50 border-t border-slate-200 flex justify-end">
+              <button
+                onClick={() => setShowPolicyModal(false)}
+                className="px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white rounded-lg text-xs font-semibold"
+              >
+                Understood
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

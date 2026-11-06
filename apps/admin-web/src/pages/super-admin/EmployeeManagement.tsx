@@ -10,6 +10,7 @@ import {
   DollarSign,
   ChevronLeft,
   ChevronRight,
+  ShieldCheck,
 } from 'lucide-react';
 import { superAdminApi } from '../../services/api';
 import { EmployeeProfile } from '../../types';
@@ -131,9 +132,14 @@ export const GlobalEmployeeManagement: React.FC = () => {
     <div className="space-y-6">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl font-bold text-slate-900 tracking-tight">Global Employee Directory</h2>
-          <p className="text-xs text-slate-500 mt-0.5">
-            Enterprise database of {employees.length} registered field and hub personnel across all zones.
+          <div className="flex items-center gap-2 mb-1">
+            <h2 className="text-xl font-bold text-slate-900 tracking-tight">Global Employee Directory</h2>
+            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 bg-amber-50 text-amber-800 border border-amber-200 rounded-md text-[11px] font-semibold">
+              <ShieldCheck className="w-3 h-3 text-amber-600" /> Super Admin Exclusive Creation
+            </span>
+          </div>
+          <p className="text-xs text-slate-500">
+            Enterprise database of {employees.length} registered field and hub personnel. Only Super Admin has authorization to onboard new employees.
           </p>
         </div>
 
@@ -151,7 +157,7 @@ export const GlobalEmployeeManagement: React.FC = () => {
             className="inline-flex items-center gap-2 px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white rounded-lg text-xs font-semibold shadow-xs transition-colors"
           >
             <Plus className="w-4 h-4" />
-            Onboard Employee
+            Onboard New Employee
           </button>
         </div>
       </div>
@@ -347,7 +353,15 @@ export const GlobalEmployeeManagement: React.FC = () => {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4 animate-in fade-in">
           <div className="bg-white rounded-xl shadow-xl border border-slate-200 w-full max-w-lg overflow-hidden">
             <div className="px-6 py-4 border-b border-slate-200 flex items-center justify-between bg-slate-50">
-              <h3 className="font-bold text-slate-900 text-sm">Onboard Field Employee</h3>
+              <div className="flex items-center gap-2">
+                <div className="p-1.5 bg-teal-50 text-teal-700 rounded-lg border border-teal-100">
+                  <ShieldCheck className="w-4 h-4" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-slate-900 text-sm">Onboard Field Employee</h3>
+                  <p className="text-[10px] text-slate-500">Super Admin Exclusive Privilege · Enforced via RBAC</p>
+                </div>
+              </div>
               <button onClick={() => setIsCreateModalOpen(false)} className="text-slate-400 hover:text-slate-600">
                 ✕
               </button>

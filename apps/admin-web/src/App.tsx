@@ -27,6 +27,13 @@ import { SubAdminEmployeeUpdateHistory } from './pages/sub-admin/EmployeeUpdateH
 import { SubAdminAlerts } from './pages/sub-admin/SubAdminAlerts';
 import { SubAdminReports } from './pages/sub-admin/SubAdminReports';
 
+// Employee Pages
+import { EmployeeDashboard } from './pages/employee/EmployeeDashboard';
+import { EmployeeAttendance } from './pages/employee/EmployeeAttendance';
+import { EmployeeFinance } from './pages/employee/EmployeeFinance';
+import { EmployeeEntries } from './pages/employee/EmployeeEntries';
+import { EmployeeProfile } from './pages/employee/EmployeeProfile';
+
 // Route Guards
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { isAuthenticated, isLoading } = useAuth();
@@ -47,12 +54,40 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
 };
 
 const SuperAdminOnlyRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { user, isSuperAdmin, isLoading } = useAuth();
+  const { isSuperAdmin, isEmployee, isLoading } = useAuth();
 
   if (isLoading) return null;
 
+  if (isEmployee) {
+    return <Navigate to="/employee/dashboard" replace />;
+  }
+
   if (!isSuperAdmin) {
     return <Navigate to="/admin/overview" replace />;
+  }
+
+  return <>{children}</>;
+};
+
+const AdminOnlyRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { isEmployee, isLoading } = useAuth();
+
+  if (isLoading) return null;
+
+  if (isEmployee) {
+    return <Navigate to="/employee/dashboard" replace />;
+  }
+
+  return <>{children}</>;
+};
+
+const EmployeeOnlyRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { isEmployee, isSuperAdmin, isLoading } = useAuth();
+
+  if (isLoading) return null;
+
+  if (!isEmployee) {
+    return <Navigate to={isSuperAdmin ? '/super-admin/overview' : '/admin/overview'} replace />;
   }
 
   return <>{children}</>;
@@ -79,6 +114,10 @@ const RootRedirect: React.FC = () => {
 
   if (user.role === 'SUB_ADMIN') {
     return <Navigate to="/admin/overview" replace />;
+  }
+
+  if (user.role === 'EMPLOYEE') {
+    return <Navigate to="/employee/dashboard" replace />;
   }
 
   return <Navigate to="/login" replace />;
@@ -125,7 +164,9 @@ export default function App() {
             path="/admin"
             element={
               <ProtectedRoute>
-                <AppLayout />
+                <AdminOnlyRoute>
+                  <AppLayout />
+                </AdminOnlyRoute>
               </ProtectedRoute>
             }
           >
@@ -139,6 +180,25 @@ export default function App() {
             <Route path="alerts" element={<SubAdminAlerts />} />
             <Route path="reports" element={<SubAdminReports />} />
             <Route path="profile" element={<Profile />} />
+          </Route>
+
+          {/* Employee Self-Service Protected Applet Routes */}
+          <Route
+            path="/employee"
+            element={
+              <ProtectedRoute>
+                <EmployeeOnlyRoute>
+                  <AppLayout />
+                </EmployeeOnlyRoute>
+              </ProtectedRoute>
+            }
+          >
+            <Route index element={<Navigate to="/employee/dashboard" replace />} />
+            <Route path="dashboard" element={<EmployeeDashboard />} />
+            <Route path="attendance" element={<EmployeeAttendance />} />
+            <Route path="finance" element={<EmployeeFinance />} />
+            <Route path="entries" element={<EmployeeEntries />} />
+            <Route path="profile" element={<EmployeeProfile />} />
           </Route>
 
           {/* Catch-all redirect */}

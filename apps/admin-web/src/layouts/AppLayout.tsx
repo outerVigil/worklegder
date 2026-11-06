@@ -30,7 +30,7 @@ import { superAdminApi, subAdminApi } from '../services/api';
 import { SystemAlert } from '../types';
 
 export const AppLayout: React.FC = () => {
-  const { user, isSuperAdmin, isSubAdmin, logout, switchRoleDemo } = useAuth();
+  const { user, isSuperAdmin, isSubAdmin, isEmployee, logout, switchRoleDemo } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -43,24 +43,30 @@ export const AppLayout: React.FC = () => {
 
   // Poll alerts every 30 seconds
   useEffect(() => {
+    let isMounted = true;
+
     const fetchAlerts = async () => {
+      if (!user) return;
       try {
         if (isSuperAdmin) {
           const data = await superAdminApi.getAlerts();
-          setAlerts(data);
+          if (isMounted) setAlerts(data || []);
         } else if (isSubAdmin) {
           const data = await subAdminApi.getAlerts();
-          setAlerts(data);
+          if (isMounted) setAlerts(data || []);
         }
       } catch (err) {
-        console.error('Failed to fetch alerts:', err);
+        console.warn('Alert polling status check:', err);
       }
     };
 
     fetchAlerts();
     const interval = setInterval(fetchAlerts, 30000);
-    return () => clearInterval(interval);
-  }, [isSuperAdmin, isSubAdmin]);
+    return () => {
+      isMounted = false;
+      clearInterval(interval);
+    };
+  }, [user, isSuperAdmin, isSubAdmin]);
 
   const unreadAlertsCount = alerts.filter((a) => !a.reviewed).length;
 
@@ -69,18 +75,29 @@ export const AppLayout: React.FC = () => {
     navigate('/login');
   };
 
-  const handleRoleSwitch = async (roleKey: 'SUPER_ADMIN' | 'SUB_ADMIN_1' | 'SUB_ADMIN_2') => {
+  const handleRoleSwitch = async (
+    roleKey: 'SUPER_ADMIN' | 'SUB_ADMIN_1' | 'SUB_ADMIN_2' | 'EMPLOYEE'
+  ) => {
     setIsSwitchRoleOpen(false);
     await switchRoleDemo(roleKey);
     if (roleKey === 'SUPER_ADMIN') {
       navigate('/super-admin/overview');
+    } else if (roleKey === 'EMPLOYEE') {
+      navigate('/employee/dashboard');
     } else {
       navigate('/admin/overview');
     }
   };
 
+  interface NavItem {
+    label: string;
+    path: string;
+    icon: React.ComponentType<{ className?: string }>;
+    badge?: number;
+  }
+
   // Super Admin Navigation Items
-  const superAdminNav = [
+  const superAdminNav: NavItem[] = [
     { label: 'Overview', path: '/super-admin/overview', icon: LayoutDashboard },
     { label: 'Users & Roles', path: '/super-admin/users', icon: Users },
     { label: 'Sub-Admin Management', path: '/super-admin/sub-admins', icon: UserCheck },
@@ -95,7 +112,7 @@ export const AppLayout: React.FC = () => {
   ];
 
   // Sub-Admin Navigation Items
-  const subAdminNav = [
+  const subAdminNav: NavItem[] = [
     { label: 'Overview', path: '/admin/overview', icon: LayoutDashboard },
     { label: 'Employees', path: '/admin/employees', icon: Briefcase },
     { label: 'Punch History', path: '/admin/punches', icon: Clock },
@@ -107,7 +124,16 @@ export const AppLayout: React.FC = () => {
     { label: 'Profile', path: '/admin/profile', icon: UserCircle },
   ];
 
-  const currentNav = isSuperAdmin ? superAdminNav : subAdminNav;
+  // Employee Self-Service Navigation Items
+  const employeeNav: NavItem[] = [
+    { label: 'Dashboard', path: '/employee/dashboard', icon: LayoutDashboard },
+    { label: 'My Attendance', path: '/employee/attendance', icon: CalendarCheck },
+    { label: 'Financial Info', path: '/employee/finance', icon: BadgeDollarSign },
+    { label: 'Entry Submissions', path: '/employee/entries', icon: CheckCircle2 },
+    { label: 'My Profile', path: '/employee/profile', icon: UserCircle },
+  ];
+
+  const currentNav: NavItem[] = isSuperAdmin ? superAdminNav : isEmployee ? employeeNav : subAdminNav;
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col md:flex-row font-sans text-slate-800 antialiased selection:bg-teal-500/20">
@@ -122,10 +148,7 @@ export const AppLayout: React.FC = () => {
         {/* Brand Header */}
         <div className="h-16 flex items-center justify-between px-4 border-b border-slate-800/80">
           <div className="flex items-center gap-3 overflow-hidden">
-            <div className="w-9 h-9 rounded-lg bg-teal-500 text-slate-950 font-black flex items-center justify-center shrink-0 shadow-sm">
-              <ShieldCheck className="w-5 h-5 text-slate-950" />
-            </div>
-            {isSidebarOpen && (
+            {isSidebarOpen ? (
               <div className="truncate">
                 <span className="font-extrabold text-white tracking-tight text-sm block leading-none">
                   WORKFORCE<span className="text-teal-400">·PRO</span>
@@ -134,6 +157,8 @@ export const AppLayout: React.FC = () => {
                   Enterprise Platform
                 </span>
               </div>
+            ) : (
+              <span className="font-black text-teal-400 tracking-wider text-xs">WP</span>
             )}
           </div>
 
@@ -262,6 +287,8 @@ export const AppLayout: React.FC = () => {
               <p className="text-[11px] text-slate-400 hidden sm:block">
                 {isSuperAdmin
                   ? 'Enterprise Global Master Administration'
+                  : isEmployee
+                  ? 'Employee Self-Service Portal'
                   : `Regional Hub Operations · ${user?.region || 'Assigned Zone'}`}
               </p>
             </div>
@@ -326,11 +353,25 @@ export const AppLayout: React.FC = () => {
                     </div>
                     {user?.email.includes('south') && <span className="w-2 h-2 rounded-full bg-teal-500" />}
                   </button>
+
+                  <button
+                    onClick={() => handleRoleSwitch('EMPLOYEE')}
+                    className={`w-full text-left px-3 py-2 text-xs hover:bg-slate-50 flex items-center justify-between border-t border-slate-100 ${
+                      isEmployee ? 'bg-teal-50/60 font-bold text-teal-900' : 'text-slate-700'
+                    }`}
+                  >
+                    <div>
+                      <div className="font-semibold">Rajesh Kumar</div>
+                      <div className="text-[10px] text-slate-400">EMPLOYEE · Self-Service Portal</div>
+                    </div>
+                    {isEmployee && <span className="w-2 h-2 rounded-full bg-teal-500" />}
+                  </button>
                 </div>
               )}
             </div>
 
-            {/* Notification Bell Dropdown */}
+            {/* Notification Bell Dropdown (Admin Only) */}
+            {!isEmployee && (
             <div className="relative">
               <button
                 onClick={() => setIsAlertsOpen(!isAlertsOpen)}
@@ -391,6 +432,7 @@ export const AppLayout: React.FC = () => {
                 </div>
               )}
             </div>
+            )}
 
             {/* User Dropdown */}
             <div className="relative">
@@ -413,7 +455,13 @@ export const AppLayout: React.FC = () => {
                   <button
                     onClick={() => {
                       setIsUserMenuOpen(false);
-                      navigate(isSuperAdmin ? '/super-admin/profile' : '/admin/profile');
+                      navigate(
+                        isSuperAdmin
+                          ? '/super-admin/profile'
+                          : isEmployee
+                          ? '/employee/profile'
+                          : '/admin/profile'
+                      );
                     }}
                     className="w-full text-left px-3 py-2 text-xs text-slate-700 hover:bg-slate-50 flex items-center gap-2"
                   >

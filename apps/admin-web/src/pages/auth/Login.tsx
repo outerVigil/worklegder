@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ShieldCheck, Lock, Mail, AlertCircle, ArrowRight, Smartphone } from 'lucide-react';
+import { Lock, Mail, AlertCircle, ArrowRight, Smartphone } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
 export const Login: React.FC = () => {
@@ -23,6 +23,8 @@ export const Login: React.FC = () => {
         navigate('/super-admin/overview');
       } else if (user.role === 'SUB_ADMIN') {
         navigate('/admin/overview');
+      } else if (user.role === 'EMPLOYEE') {
+        navigate('/employee/dashboard');
       }
     } catch (err: any) {
       if (err.response?.data?.message) {
@@ -64,13 +66,8 @@ export const Login: React.FC = () => {
         }}
       />
 
-      <div className="sm:mx-auto sm:w-full sm:max-w-md relative z-10">
-        <div className="flex justify-center">
-          <div className="w-14 h-14 rounded-2xl bg-teal-500 text-slate-950 flex items-center justify-center shadow-lg shadow-teal-500/20 ring-4 ring-teal-500/10">
-            <ShieldCheck className="w-8 h-8" />
-          </div>
-        </div>
-        <h2 className="mt-5 text-center text-2xl font-extrabold tracking-tight text-white">
+      <div className="sm:mx-auto sm:w-full sm:max-w-md relative z-10 text-center">
+        <h2 className="text-2xl font-extrabold tracking-tight text-white">
           Workforce &amp; Financial Management
         </h2>
         <p className="mt-2 text-center text-xs text-slate-400">
@@ -191,12 +188,12 @@ export const Login: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setDemoCredentials('EMPLOYEE')}
-                className="p-2 text-left bg-rose-50 hover:bg-rose-100 border border-rose-200 rounded-lg transition-colors"
+                className="p-2 text-left bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-lg transition-colors"
               >
-                <div className="text-[11px] font-bold text-rose-900 flex items-center gap-1">
-                  <Smartphone className="w-3 h-3" /> Test Employee
+                <div className="text-[11px] font-bold text-sky-900 flex items-center gap-1">
+                  <Smartphone className="w-3 h-3" /> Field Employee
                 </div>
-                <div className="text-[10px] text-rose-600 truncate">Tests 403 Rejection Rule</div>
+                <div className="text-[10px] text-slate-500 truncate">Rajesh Kumar (North)</div>
               </button>
             </div>
           </div>

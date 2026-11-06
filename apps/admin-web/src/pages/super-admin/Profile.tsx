@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { UserCircle, Shield, Key, Mail, Phone, Building, Check } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import { authApi } from '../../services/api';
 
 export const Profile: React.FC = () => {
   const { user } = useAuth();
@@ -8,18 +9,25 @@ export const Profile: React.FC = () => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordSaved, setPasswordSaved] = useState(false);
+  const [passwordError, setPasswordError] = useState<string | null>(null);
 
-  const handlePasswordSubmit = (e: React.FormEvent) => {
+  const handlePasswordSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setPasswordError(null);
     if (newPassword !== confirmPassword) {
-      alert('Passwords do not match');
+      setPasswordError('New passwords do not match.');
       return;
     }
-    setPasswordSaved(true);
-    setCurrentPassword('');
-    setNewPassword('');
-    setConfirmPassword('');
-    setTimeout(() => setPasswordSaved(false), 2500);
+    try {
+      await authApi.updatePassword(currentPassword, newPassword);
+      setPasswordSaved(true);
+      setCurrentPassword('');
+      setNewPassword('');
+      setConfirmPassword('');
+      setTimeout(() => setPasswordSaved(false), 2500);
+    } catch (err: any) {
+      setPasswordError(err?.response?.data?.message || 'Failed to update password.');
+    }
   };
 
   return (
@@ -119,7 +127,11 @@ export const Profile: React.FC = () => {
               <span className="text-emerald-700 font-semibold flex items-center gap-1">
                 <Check className="w-4 h-4" /> Password successfully updated!
               </span>
-            ) : <span />}
+            ) : passwordError ? (
+              <span className="text-rose-600 font-semibold">{passwordError}</span>
+            ) : (
+              <span />
+            )}
 
             <button
               type="submit"

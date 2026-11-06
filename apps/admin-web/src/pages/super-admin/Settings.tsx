@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Settings, Shield, MapPin, Clock, DollarSign, Bell, Save, Check } from 'lucide-react';
+import { superAdminApi } from '../../services/api';
 
 export const SystemSettings: React.FC = () => {
   const [geofenceRadius, setGeofenceRadius] = useState(500);
@@ -8,10 +9,34 @@ export const SystemSettings: React.FC = () => {
   const [telemetryIntervalMinutes, setTelemetryIntervalMinutes] = useState(15);
   const [saved, setSaved] = useState(false);
 
-  const handleSave = (e: React.FormEvent) => {
+  useEffect(() => {
+    superAdminApi
+      .getSettings()
+      .then((s) => {
+        if (s) {
+          setGeofenceRadius(s.geofenceRadius);
+          setAutoCheckoutHours(s.autoCheckoutHours);
+          setMaxWithdrawalLimit(s.maxWithdrawalLimit);
+          setTelemetryIntervalMinutes(s.telemetryIntervalMinutes);
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2000);
+    try {
+      await superAdminApi.updateSettings({
+        geofenceRadius,
+        autoCheckoutHours,
+        maxWithdrawalLimit,
+        telemetryIntervalMinutes,
+      });
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2000);
+    } catch (err) {
+      console.error('Failed to save settings:', err);
+    }
   };
 
   return (
