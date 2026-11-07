@@ -40,7 +40,8 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-900 flex items-center justify-center text-teal-400 text-xs font-mono">
+      <div className="min-h-screen bg-[#F5F1EB] flex flex-col items-center justify-center gap-3 text-[#880E23] text-xs font-mono font-medium tracking-wide">
+        <div className="w-6 h-6 border-2 border-[#880E23] border-t-transparent rounded-full animate-spin" />
         Verifying Security Token &amp; Session Privileges...
       </div>
     );
@@ -98,7 +99,8 @@ const RootRedirect: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-900 flex items-center justify-center text-teal-400 text-xs font-mono">
+      <div className="min-h-screen bg-[#F5F1EB] flex flex-col items-center justify-center gap-3 text-[#880E23] text-xs font-mono font-medium tracking-wide">
+        <div className="w-6 h-6 border-2 border-[#880E23] border-t-transparent rounded-full animate-spin" />
         Routing to Authorized Operations Portal...
       </div>
     );

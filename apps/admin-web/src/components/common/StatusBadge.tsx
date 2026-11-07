@@ -10,16 +10,16 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({ status, size = 'md' })
   const s = String(status).toUpperCase();
   const textSize = size === 'sm' ? 'text-[11px]' : 'text-xs';
 
-  let colorClasses = 'bg-slate-100 text-slate-700 border-slate-200';
-  let dotColor = 'bg-slate-400';
+  let colorClasses = 'bg-[#FAF8F5] text-[#5A504E] border-[#E8E2D8]';
+  let dotColor = 'bg-[#A89B85]';
 
   // Active / Deactivated
   if (s === 'ACTIVE') {
     colorClasses = 'bg-emerald-50 text-emerald-800 border-emerald-200';
     dotColor = 'bg-emerald-500';
   } else if (s === 'DEACTIVATED' || s === 'INACTIVE') {
-    colorClasses = 'bg-rose-50 text-rose-800 border-rose-200';
-    dotColor = 'bg-rose-500';
+    colorClasses = 'bg-[#FDF2F4] text-[#780E21] border-[#F8CAD1]';
+    dotColor = 'bg-[#880E23]';
   }
 
   // Attendance
@@ -27,11 +27,11 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({ status, size = 'md' })
     colorClasses = 'bg-emerald-50 text-emerald-800 border-emerald-200';
     dotColor = 'bg-emerald-500';
   } else if (s === 'CHECKED_IN') {
-    colorClasses = 'bg-teal-50 text-teal-800 border-teal-200';
-    dotColor = 'bg-teal-500 animate-pulse';
+    colorClasses = 'bg-[#FDF2F4] text-[#780E21] border-[#F8CAD1] font-semibold';
+    dotColor = 'bg-[#880E23] animate-pulse';
   } else if (s === 'ABSENT') {
-    colorClasses = 'bg-rose-50 text-rose-800 border-rose-200';
-    dotColor = 'bg-rose-500';
+    colorClasses = 'bg-[#FDF2F4] text-[#780E21] border-[#F8CAD1]';
+    dotColor = 'bg-[#880E23]';
   } else if (s === 'MISSING_CHECKOUT') {
     colorClasses = 'bg-amber-50 text-amber-800 border-amber-200';
     dotColor = 'bg-amber-500';
@@ -45,23 +45,23 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({ status, size = 'md' })
     colorClasses = 'bg-amber-50 text-amber-800 border-amber-200';
     dotColor = 'bg-amber-500';
   } else if (s === 'REJECTED') {
-    colorClasses = 'bg-rose-50 text-rose-800 border-rose-200';
-    dotColor = 'bg-rose-500';
+    colorClasses = 'bg-[#FDF2F4] text-[#780E21] border-[#F8CAD1]';
+    dotColor = 'bg-[#880E23]';
   }
 
   // Alerts
   else if (s === 'CRITICAL') {
-    colorClasses = 'bg-rose-100 text-rose-900 border-rose-300 font-semibold';
-    dotColor = 'bg-rose-600 animate-ping';
+    colorClasses = 'bg-[#880E23] text-white border-[#6B081A] font-bold shadow-xs';
+    dotColor = 'bg-white animate-ping';
   } else if (s === 'HIGH') {
-    colorClasses = 'bg-rose-50 text-rose-800 border-rose-200';
-    dotColor = 'bg-rose-500';
+    colorClasses = 'bg-[#FDF2F4] text-[#780E21] border-[#F8CAD1] font-semibold';
+    dotColor = 'bg-[#880E23]';
   } else if (s === 'MEDIUM') {
     colorClasses = 'bg-amber-50 text-amber-800 border-amber-200';
     dotColor = 'bg-amber-500';
   } else if (s === 'LOW') {
-    colorClasses = 'bg-blue-50 text-blue-800 border-blue-200';
-    dotColor = 'bg-blue-500';
+    colorClasses = 'bg-[#F5F1EB] text-[#5A504E] border-[#EBE5DB]';
+    dotColor = 'bg-[#877A65]';
   }
 
   const formattedLabel = s.replace(/_/g, ' ');

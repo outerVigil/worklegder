@@ -1,1 +1,64 @@
 @import "tailwindcss";
+
+@theme {
+  --color-beige-50: #FAF8F5;
+  --color-beige-100: #F5F1EB;
+  --color-beige-200: #EBE5DB;
+  --color-beige-300: #DDD5C7;
+  --color-beige-400: #C8BDAA;
+  --color-beige-500: #A89B85;
+  --color-beige-600: #877A65;
+  --color-beige-700: #685E4E;
+  --color-beige-800: #4E463A;
+  --color-beige-900: #363028;
+
+  --color-crimson-50: #FDF3F5;
+  --color-crimson-100: #FCE6E9;
+  --color-crimson-200: #F8C8D0;
+  --color-crimson-300: #F298A8;
+  --color-crimson-400: #DF546C;
+  --color-crimson-500: #B71C35;
+  --color-crimson-600: #880E23;
+  --color-crimson-700: #6B081A;
+  --color-crimson-800: #4E0512;
+  --color-crimson-900: #3B030B;
+  --color-crimson-950: #260207;
+
+  /* Map teal to matte crimson so all components instantly receive the exact crimson palette */
+  --color-teal-50: #FDF3F5;
+  --color-teal-100: #FCE6E9;
+  --color-teal-200: #F8C8D0;
+  --color-teal-300: #F298A8;
+  --color-teal-400: #DF546C;
+  --color-teal-500: #B71C35;
+  --color-teal-600: #880E23;
+  --color-teal-700: #6B081A;
+  --color-teal-800: #4E0512;
+  --color-teal-900: #3B030B;
+  --color-teal-950: #260207;
+}
+
+body {
+  background-color: #F5F1EB;
+  color: #2D2526;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+/* Custom scrollbars matching beige and crimson */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #EBE5DB;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C8BDAA;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #880E23;
+}

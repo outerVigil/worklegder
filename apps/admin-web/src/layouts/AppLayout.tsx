@@ -136,35 +136,35 @@ export const AppLayout: React.FC = () => {
   const currentNav: NavItem[] = isSuperAdmin ? superAdminNav : isEmployee ? employeeNav : subAdminNav;
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col md:flex-row font-sans text-slate-800 antialiased selection:bg-teal-500/20">
+    <div className="min-h-screen bg-[#F5F1EB] flex flex-col md:flex-row font-sans text-[#2D2526] antialiased selection:bg-[#880E23]/20 selection:text-[#540A17]">
       {/* ========================================================= */}
-      {/* DARK NAVY SIDEBAR (Executive Enterprise SaaS Theme) */}
+      {/* DEEP MATTE CRIMSON & WINE SIDEBAR (Matching Exact Color Combo) */}
       {/* ========================================================= */}
       <aside
         className={`fixed md:sticky top-0 z-40 h-screen transition-all duration-300 ease-in-out shrink-0 ${
           isSidebarOpen ? 'w-64' : 'w-20'
-        } ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'} bg-[#0F172A] border-r border-slate-800 flex flex-col shadow-xl`}
+        } ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'} bg-[#2D040A] border-r border-[#440712] flex flex-col shadow-xl`}
       >
         {/* Brand Header */}
-        <div className="h-16 flex items-center justify-between px-4 border-b border-slate-800/80">
+        <div className="h-16 flex items-center justify-between px-4 border-b border-[#440712]">
           <div className="flex items-center gap-3 overflow-hidden">
             {isSidebarOpen ? (
               <div className="truncate">
                 <span className="font-extrabold text-white tracking-tight text-sm block leading-none">
-                  WORKFORCE<span className="text-teal-400">·PRO</span>
+                  WORKFORCE<span className="text-[#E66176]">·PRO</span>
                 </span>
-                <span className="text-[10px] text-slate-400 font-medium tracking-wider uppercase block mt-1">
+                <span className="text-[10px] text-[#C8BDAA] font-medium tracking-wider uppercase block mt-1">
                   Enterprise Platform
                 </span>
               </div>
             ) : (
-              <span className="font-black text-teal-400 tracking-wider text-xs">WP</span>
+              <span className="font-black text-[#E66176] tracking-wider text-xs">WP</span>
             )}
           </div>
 
           <button
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className="hidden md:flex p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/80 transition-colors"
+            className="hidden md:flex p-1.5 rounded-lg text-[#C8BDAA] hover:text-white hover:bg-[#440712] transition-colors"
             title="Toggle Sidebar"
           >
             <ArrowRightLeft className="w-4 h-4" />
@@ -172,7 +172,7 @@ export const AppLayout: React.FC = () => {
 
           <button
             onClick={() => setIsMobileMenuOpen(false)}
-            className="md:hidden p-1.5 rounded-lg text-slate-400 hover:text-white"
+            className="md:hidden p-1.5 rounded-lg text-[#C8BDAA] hover:text-white"
           >
             <X className="w-5 h-5" />
           </button>
@@ -180,25 +180,25 @@ export const AppLayout: React.FC = () => {
 
         {/* Role Badge Indicator */}
         {isSidebarOpen && (
-          <div className="px-4 py-3 border-b border-slate-800/60 bg-slate-900/40">
+          <div className="px-4 py-3 border-b border-[#440712] bg-[#220206]/60">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <span
                   className={`w-2 h-2 rounded-full ${
-                    isSuperAdmin ? 'bg-indigo-400 animate-pulse' : 'bg-teal-400 animate-pulse'
+                    isSuperAdmin ? 'bg-[#E66176] animate-pulse' : 'bg-[#F29CA9] animate-pulse'
                   }`}
                 />
-                <span className="text-[11px] font-bold text-slate-300 uppercase tracking-wider">
+                <span className="text-[11px] font-bold text-[#EBE5DB] uppercase tracking-wider">
                   {user?.role.replace('_', ' ')}
                 </span>
               </div>
-              <span className="text-[10px] font-mono text-slate-400 bg-slate-800 px-1.5 py-0.5 rounded">
+              <span className="text-[10px] font-mono text-[#D5CDBD] bg-[#440712] px-1.5 py-0.5 rounded">
                 v2.4
               </span>
             </div>
             {user?.region && (
-              <p className="text-[11px] text-slate-400 truncate mt-1 flex items-center gap-1">
-                <Building2 className="w-3 h-3 text-slate-500 shrink-0" />
+              <p className="text-[11px] text-[#C8BDAA] truncate mt-1 flex items-center gap-1">
+                <Building2 className="w-3 h-3 text-[#A89B85] shrink-0" />
                 {user.region}
               </p>
             )}
@@ -206,7 +206,7 @@ export const AppLayout: React.FC = () => {
         )}
 
         {/* Navigation Links */}
-        <nav className="flex-1 overflow-y-auto py-3 px-2 space-y-1 scrollbar-thin scrollbar-thumb-slate-800">
+        <nav className="flex-1 overflow-y-auto py-3 px-2 space-y-1 scrollbar-thin scrollbar-thumb-[#440712]">
           {currentNav.map((item) => {
             const Icon = item.icon;
             return (
@@ -217,20 +217,20 @@ export const AppLayout: React.FC = () => {
                 className={({ isActive }) =>
                   `flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium transition-all group relative ${
                     isActive
-                      ? 'bg-teal-500/15 text-teal-400 border-l-3 border-teal-400 font-semibold shadow-xs'
-                      : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800/60'
+                      ? 'bg-[#540A17] text-[#FDF2F4] border-l-3 border-[#E66176] font-semibold shadow-xs'
+                      : 'text-[#D5CDBD] hover:text-white hover:bg-[#3D060F]'
                   }`
                 }
               >
                 <Icon className="w-4 h-4 shrink-0 transition-transform group-hover:scale-105" />
                 {isSidebarOpen && <span className="truncate flex-1">{item.label}</span>}
                 {isSidebarOpen && item.badge !== undefined && item.badge > 0 && (
-                  <span className="text-[10px] px-1.5 py-0.2 rounded-full font-bold bg-rose-500/90 text-white shrink-0">
+                  <span className="text-[10px] px-1.5 py-0.2 rounded-full font-bold bg-[#880E23] text-white shrink-0 border border-[#A81730]">
                     {item.badge}
                   </span>
                 )}
                 {!isSidebarOpen && (
-                  <div className="absolute left-full ml-2 px-2.5 py-1 bg-slate-900 text-white text-xs rounded shadow-lg whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none z-50">
+                  <div className="absolute left-full ml-2 px-2.5 py-1 bg-[#2D040A] border border-[#440712] text-white text-xs rounded shadow-lg whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none z-50">
                     {item.label}
                   </div>
                 )}
@@ -240,23 +240,23 @@ export const AppLayout: React.FC = () => {
         </nav>
 
         {/* User Card & Logout in Sidebar */}
-        <div className="p-3 border-t border-slate-800 bg-slate-900/60">
+        <div className="p-3 border-t border-[#440712] bg-[#220206]/80">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5 overflow-hidden">
-              <div className="w-8 h-8 rounded-full bg-slate-800 text-slate-200 border border-slate-700 font-bold flex items-center justify-center text-xs shrink-0">
+              <div className="w-8 h-8 rounded-full bg-[#540A17] text-[#FDF2F4] border border-[#6B081A] font-bold flex items-center justify-center text-xs shrink-0">
                 {user?.name.charAt(0) || 'U'}
               </div>
               {isSidebarOpen && (
                 <div className="truncate">
-                  <p className="text-xs font-semibold text-slate-200 truncate leading-tight">{user?.name}</p>
-                  <p className="text-[10px] text-slate-500 truncate">{user?.email}</p>
+                  <p className="text-xs font-semibold text-[#FDF2F4] truncate leading-tight">{user?.name}</p>
+                  <p className="text-[10px] text-[#C8BDAA] truncate">{user?.email}</p>
                 </div>
               )}
             </div>
             {isSidebarOpen && (
               <button
                 onClick={handleLogout}
-                className="p-1.5 rounded-md text-slate-400 hover:text-rose-400 hover:bg-slate-800 transition-colors"
+                className="p-1.5 rounded-md text-[#C8BDAA] hover:text-[#F8CAD1] hover:bg-[#3D060F] transition-colors"
                 title="Sign out"
               >
                 <LogOut className="w-4 h-4" />
@@ -269,22 +269,22 @@ export const AppLayout: React.FC = () => {
       {/* ========================================================= */}
       {/* MAIN CONTENT AREA */}
       {/* ========================================================= */}
-      <div className="flex-1 flex flex-col min-w-0 min-h-screen">
+      <div className="flex-1 flex flex-col min-w-0 min-h-screen bg-[#F5F1EB]">
         {/* Top Header Bar */}
-        <header className="h-16 bg-white border-b border-slate-200/80 px-4 md:px-8 flex items-center justify-between sticky top-0 z-30 shadow-2xs">
+        <header className="h-16 bg-[#FAF8F5] border-b border-[#E8E2D8] px-4 md:px-8 flex items-center justify-between sticky top-0 z-30 shadow-2xs">
           <div className="flex items-center gap-3">
             <button
               onClick={() => setIsMobileMenuOpen(true)}
-              className="md:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100"
+              className="md:hidden p-2 rounded-lg text-[#5A504E] hover:bg-[#EBE5DB]"
             >
               <Menu className="w-5 h-5" />
             </button>
 
             <div>
-              <h1 className="text-sm md:text-base font-bold text-slate-900 tracking-tight capitalize">
+              <h1 className="text-sm md:text-base font-bold text-[#2D2526] tracking-tight capitalize">
                 {location.pathname.split('/').pop()?.replace(/-/g, ' ') || 'Dashboard'}
               </h1>
-              <p className="text-[11px] text-slate-400 hidden sm:block">
+              <p className="text-[11px] text-[#74675B] hidden sm:block">
                 {isSuperAdmin
                   ? 'Enterprise Global Master Administration'
                   : isEmployee
@@ -300,71 +300,71 @@ export const AppLayout: React.FC = () => {
             <div className="relative">
               <button
                 onClick={() => setIsSwitchRoleOpen(!isSwitchRoleOpen)}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-slate-100 text-xs font-semibold text-slate-700 transition-colors"
+                className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-[#E8E2D8] bg-[#FAF8F5] hover:bg-[#F5F1EB] text-xs font-semibold text-[#4E463A] transition-colors"
               >
-                <ArrowRightLeft className="w-3.5 h-3.5 text-teal-600" />
-                <span className="hidden sm:inline">Role View:</span>
-                <span className="font-bold text-teal-700">
+                <ArrowRightLeft className="w-3.5 h-3.5 text-[#880E23]" />
+                <span className="hidden sm:inline text-[#685E4E]">Role View:</span>
+                <span className="font-bold text-[#880E23]">
                   {isSuperAdmin ? 'Super Admin' : user?.name.split(' ')[0]}
                 </span>
-                <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
+                <ChevronDown className="w-3.5 h-3.5 text-[#A89B85]" />
               </button>
 
               {isSwitchRoleOpen && (
-                <div className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-slate-200 py-2 z-50 animate-in fade-in">
-                  <div className="px-3 py-1.5 border-b border-slate-100 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                <div className="absolute right-0 mt-2 w-64 bg-[#FAF8F5] rounded-xl shadow-xl border border-[#E8E2D8] py-2 z-50 animate-in fade-in">
+                  <div className="px-3 py-1.5 border-b border-[#EBE5DB] text-[10px] font-bold text-[#877A65] uppercase tracking-wider">
                     Fast Role Testing Switcher
                   </div>
                   <button
                     onClick={() => handleRoleSwitch('SUPER_ADMIN')}
-                    className={`w-full text-left px-3 py-2 text-xs hover:bg-slate-50 flex items-center justify-between ${
-                      isSuperAdmin ? 'bg-teal-50/60 font-bold text-teal-900' : 'text-slate-700'
+                    className={`w-full text-left px-3 py-2 text-xs hover:bg-[#F5F1EB] flex items-center justify-between ${
+                      isSuperAdmin ? 'bg-[#FDF2F4] font-bold text-[#780E21]' : 'text-[#4E463A]'
                     }`}
                   >
                     <div>
                       <div className="font-semibold">Alexander Wright</div>
-                      <div className="text-[10px] text-slate-400">Global SUPER_ADMIN</div>
+                      <div className="text-[10px] text-[#74675B]">Global SUPER_ADMIN</div>
                     </div>
-                    {isSuperAdmin && <span className="w-2 h-2 rounded-full bg-teal-500" />}
+                    {isSuperAdmin && <span className="w-2 h-2 rounded-full bg-[#880E23]" />}
                   </button>
 
                   <button
                     onClick={() => handleRoleSwitch('SUB_ADMIN_1')}
-                    className={`w-full text-left px-3 py-2 text-xs hover:bg-slate-50 flex items-center justify-between ${
-                      user?.email.includes('north') ? 'bg-teal-50/60 font-bold text-teal-900' : 'text-slate-700'
+                    className={`w-full text-left px-3 py-2 text-xs hover:bg-[#F5F1EB] flex items-center justify-between ${
+                      user?.email.includes('north') ? 'bg-[#FDF2F4] font-bold text-[#780E21]' : 'text-[#4E463A]'
                     }`}
                   >
                     <div>
                       <div className="font-semibold">Sarah Jenkins</div>
-                      <div className="text-[10px] text-slate-400">SUB_ADMIN · North Hub (5 emps)</div>
+                      <div className="text-[10px] text-[#74675B]">SUB_ADMIN · North Hub (5 emps)</div>
                     </div>
-                    {user?.email.includes('north') && <span className="w-2 h-2 rounded-full bg-teal-500" />}
+                    {user?.email.includes('north') && <span className="w-2 h-2 rounded-full bg-[#880E23]" />}
                   </button>
 
                   <button
                     onClick={() => handleRoleSwitch('SUB_ADMIN_2')}
-                    className={`w-full text-left px-3 py-2 text-xs hover:bg-slate-50 flex items-center justify-between ${
-                      user?.email.includes('south') ? 'bg-teal-50/60 font-bold text-teal-900' : 'text-slate-700'
+                    className={`w-full text-left px-3 py-2 text-xs hover:bg-[#F5F1EB] flex items-center justify-between ${
+                      user?.email.includes('south') ? 'bg-[#FDF2F4] font-bold text-[#780E21]' : 'text-[#4E463A]'
                     }`}
                   >
                     <div>
                       <div className="font-semibold">Marcus Vance</div>
-                      <div className="text-[10px] text-slate-400">SUB_ADMIN · South Region (4 emps)</div>
+                      <div className="text-[10px] text-[#74675B]">SUB_ADMIN · South Region (4 emps)</div>
                     </div>
-                    {user?.email.includes('south') && <span className="w-2 h-2 rounded-full bg-teal-500" />}
+                    {user?.email.includes('south') && <span className="w-2 h-2 rounded-full bg-[#880E23]" />}
                   </button>
 
                   <button
                     onClick={() => handleRoleSwitch('EMPLOYEE')}
-                    className={`w-full text-left px-3 py-2 text-xs hover:bg-slate-50 flex items-center justify-between border-t border-slate-100 ${
-                      isEmployee ? 'bg-teal-50/60 font-bold text-teal-900' : 'text-slate-700'
+                    className={`w-full text-left px-3 py-2 text-xs hover:bg-[#F5F1EB] flex items-center justify-between border-t border-[#EBE5DB] ${
+                      isEmployee ? 'bg-[#FDF2F4] font-bold text-[#780E21]' : 'text-[#4E463A]'
                     }`}
                   >
                     <div>
                       <div className="font-semibold">Rajesh Kumar</div>
-                      <div className="text-[10px] text-slate-400">EMPLOYEE · Self-Service Portal</div>
+                      <div className="text-[10px] text-[#74675B]">EMPLOYEE · Self-Service Portal</div>
                     </div>
-                    {isEmployee && <span className="w-2 h-2 rounded-full bg-teal-500" />}
+                    {isEmployee && <span className="w-2 h-2 rounded-full bg-[#880E23]" />}
                   </button>
                 </div>
               )}
@@ -375,19 +375,19 @@ export const AppLayout: React.FC = () => {
             <div className="relative">
               <button
                 onClick={() => setIsAlertsOpen(!isAlertsOpen)}
-                className="relative p-2 rounded-lg text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors"
+                className="relative p-2 rounded-lg text-[#685E4E] hover:text-[#2D2526] hover:bg-[#EBE5DB] transition-colors"
                 title="Notifications"
               >
                 <Bell className="w-4 h-4" />
                 {unreadAlertsCount > 0 && (
-                  <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-rose-500 ring-2 ring-white" />
+                  <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-[#880E23] ring-2 ring-white" />
                 )}
               </button>
 
               {isAlertsOpen && (
-                <div className="absolute right-0 mt-2 w-80 md:w-96 bg-white rounded-xl shadow-xl border border-slate-200 overflow-hidden z-50 animate-in fade-in">
-                  <div className="px-4 py-3 border-b border-slate-100 flex items-center justify-between bg-slate-50">
-                    <span className="font-bold text-slate-900 text-xs">
+                <div className="absolute right-0 mt-2 w-80 md:w-96 bg-[#FAF8F5] rounded-xl shadow-xl border border-[#E8E2D8] overflow-hidden z-50 animate-in fade-in">
+                  <div className="px-4 py-3 border-b border-[#EBE5DB] flex items-center justify-between bg-[#F5F1EB]">
+                    <span className="font-bold text-[#2D2526] text-xs">
                       Active Operational Alerts ({unreadAlertsCount})
                     </span>
                     <button
@@ -395,32 +395,32 @@ export const AppLayout: React.FC = () => {
                         setIsAlertsOpen(false);
                         navigate(isSuperAdmin ? '/super-admin/alerts' : '/admin/alerts');
                       }}
-                      className="text-[11px] font-semibold text-teal-600 hover:underline"
+                      className="text-[11px] font-semibold text-[#880E23] hover:underline"
                     >
                       View All
                     </button>
                   </div>
 
-                  <div className="max-h-72 overflow-y-auto divide-y divide-slate-100">
+                  <div className="max-h-72 overflow-y-auto divide-y divide-[#EBE5DB]">
                     {alerts.length === 0 ? (
-                      <div className="py-6 text-center text-xs text-slate-400">No active alerts.</div>
+                      <div className="py-6 text-center text-xs text-[#877A65]">No active alerts.</div>
                     ) : (
                       alerts.slice(0, 4).map((alt) => (
-                        <div key={alt.id} className="p-3 hover:bg-slate-50 transition-colors">
+                        <div key={alt.id} className="p-3 hover:bg-[#F5F1EB] transition-colors">
                           <div className="flex items-start gap-2">
                             <AlertTriangle
                               className={`w-4 h-4 mt-0.5 shrink-0 ${
                                 alt.severity === 'CRITICAL' || alt.severity === 'HIGH'
-                                  ? 'text-rose-500'
-                                  : 'text-amber-500'
+                                  ? 'text-[#880E23]'
+                                  : 'text-amber-600'
                               }`}
                             />
                             <div className="flex-1 min-w-0">
-                              <p className="font-semibold text-xs text-slate-900 truncate">{alt.title}</p>
-                              <p className="text-[11px] text-slate-500 line-clamp-2 mt-0.5">
+                              <p className="font-semibold text-xs text-[#2D2526] truncate">{alt.title}</p>
+                              <p className="text-[11px] text-[#74675B] line-clamp-2 mt-0.5">
                                 {alt.description}
                               </p>
-                              <span className="text-[10px] text-slate-400 block mt-1">
+                              <span className="text-[10px] text-[#877A65] block mt-1">
                                 {new Date(alt.timestamp).toLocaleTimeString()}
                               </span>
                             </div>
@@ -438,19 +438,19 @@ export const AppLayout: React.FC = () => {
             <div className="relative">
               <button
                 onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                className="flex items-center gap-2 p-1.5 rounded-lg hover:bg-slate-100 transition-colors"
+                className="flex items-center gap-2 p-1.5 rounded-lg hover:bg-[#EBE5DB] transition-colors"
               >
-                <div className="w-7 h-7 rounded-full bg-teal-600 text-white font-bold flex items-center justify-center text-xs shadow-xs">
+                <div className="w-7 h-7 rounded-full bg-[#880E23] text-white font-bold flex items-center justify-center text-xs shadow-xs">
                   {user?.name.charAt(0) || 'U'}
                 </div>
-                <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
+                <ChevronDown className="w-3.5 h-3.5 text-[#A89B85]" />
               </button>
 
               {isUserMenuOpen && (
-                <div className="absolute right-0 mt-2 w-52 bg-white rounded-xl shadow-xl border border-slate-200 py-1.5 z-50 animate-in fade-in">
-                  <div className="px-3 py-2 border-b border-slate-100">
-                    <p className="text-xs font-bold text-slate-900">{user?.name}</p>
-                    <p className="text-[11px] text-slate-500 truncate">{user?.email}</p>
+                <div className="absolute right-0 mt-2 w-52 bg-[#FAF8F5] rounded-xl shadow-xl border border-[#E8E2D8] py-1.5 z-50 animate-in fade-in">
+                  <div className="px-3 py-2 border-b border-[#EBE5DB]">
+                    <p className="text-xs font-bold text-[#2D2526]">{user?.name}</p>
+                    <p className="text-[11px] text-[#74675B] truncate">{user?.email}</p>
                   </div>
                   <button
                     onClick={() => {
@@ -463,18 +463,18 @@ export const AppLayout: React.FC = () => {
                           : '/admin/profile'
                       );
                     }}
-                    className="w-full text-left px-3 py-2 text-xs text-slate-700 hover:bg-slate-50 flex items-center gap-2"
+                    className="w-full text-left px-3 py-2 text-xs text-[#4E463A] hover:bg-[#F5F1EB] flex items-center gap-2"
                   >
-                    <UserCircle className="w-4 h-4 text-slate-400" /> Account Settings
+                    <UserCircle className="w-4 h-4 text-[#880E23]" /> Account Settings
                   </button>
                   <button
                     onClick={() => {
                       setIsUserMenuOpen(false);
                       handleLogout();
                     }}
-                    className="w-full text-left px-3 py-2 text-xs text-rose-600 hover:bg-rose-50 flex items-center gap-2 border-t border-slate-100"
+                    className="w-full text-left px-3 py-2 text-xs text-[#880E23] hover:bg-[#FDF2F4] flex items-center gap-2 border-t border-[#EBE5DB]"
                   >
-                    <LogOut className="w-4 h-4 text-rose-500" /> Sign Out
+                    <LogOut className="w-4 h-4 text-[#880E23]" /> Sign Out
                   </button>
                 </div>
               )}

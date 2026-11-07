@@ -81,7 +81,7 @@ export const EmployeeEntries: React.FC = () => {
             setError(null);
             setIsModalOpen(true);
           }}
-          className="inline-flex items-center gap-2 px-4 py-2.5 bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold rounded-lg shadow-xs transition-colors"
+          className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#880E23] hover:bg-[#6B081A] text-white text-xs font-bold rounded-lg shadow-xs transition-colors"
         >
           <Plus className="w-4 h-4" />
           Submit New Entry
@@ -96,10 +96,10 @@ export const EmployeeEntries: React.FC = () => {
       )}
 
       {/* Entries Table */}
-      <div className="bg-white rounded-xl border border-slate-200/80 shadow-xs overflow-hidden">
-        <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
-          <h3 className="font-bold text-slate-900 text-sm flex items-center gap-2">
-            <FileText className="w-4 h-4 text-teal-600" />
+      <div className="bg-white rounded-xl border border-[#E8E2D8] shadow-xs overflow-hidden">
+        <div className="px-6 py-4 border-b border-[#E8E2D8] bg-[#FAF8F5] flex items-center justify-between">
+          <h3 className="font-bold text-[#2D2526] text-sm flex items-center gap-2">
+            <FileText className="w-4 h-4 text-[#880E23]" />
             Submitted Claims ({entries.length})
           </h3>
         </div>
@@ -166,13 +166,13 @@ export const EmployeeEntries: React.FC = () => {
 
       {/* Submit New Entry Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4">
-          <div className="bg-white rounded-xl shadow-2xl border border-slate-200 w-full max-w-lg overflow-hidden">
-            <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50">
-              <h3 className="font-bold text-slate-900 text-sm">Submit New Withdrawal Entry</h3>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#2D040A]/60 backdrop-blur-xs p-4">
+          <div className="bg-white rounded-xl shadow-2xl border border-[#E8E2D8] w-full max-w-lg overflow-hidden">
+            <div className="px-6 py-4 border-b border-[#E8E2D8] flex items-center justify-between bg-[#FAF8F5]">
+              <h3 className="font-bold text-[#2D2526] text-sm">Submit New Withdrawal Entry</h3>
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="p-1 text-slate-400 hover:text-slate-700 rounded-lg"
+                className="p-1 text-[#A89B85] hover:text-[#2D2526] rounded-lg transition-colors"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -258,14 +258,14 @@ export const EmployeeEntries: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-lg"
+                  className="px-4 py-2 bg-[#FAF8F5] border border-[#DDD5C7] hover:bg-[#EBE5DB] text-[#5A504E] font-semibold rounded-lg transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="px-5 py-2 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-lg shadow-xs disabled:opacity-50"
+                  className="px-5 py-2 bg-[#880E23] hover:bg-[#6B081A] text-white font-bold rounded-lg shadow-xs disabled:opacity-50 transition-colors"
                 >
                   {submitting ? 'Submitting...' : 'Submit Claim'}
                 </button>

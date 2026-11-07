@@ -72,7 +72,7 @@ export const SubAdminEmployees: React.FC = () => {
 
           <button
             onClick={() => navigate('/admin/money')}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white rounded-lg text-xs font-semibold shadow-xs transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-[#880E23] hover:bg-[#6B081A] text-white rounded-lg text-xs font-semibold shadow-xs transition-colors"
           >
             <DollarSign className="w-4 h-4" />
             Allocate Working Funds
@@ -198,40 +198,40 @@ export const SubAdminEmployees: React.FC = () => {
 
       {/* Super Admin Exclusive Authority Explanation Modal */}
       {showPolicyModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4 animate-in fade-in">
-          <div className="bg-white rounded-xl shadow-xl border border-slate-200 w-full max-w-md overflow-hidden">
-            <div className="px-6 py-4 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#2D040A]/60 backdrop-blur-xs p-4 animate-in fade-in">
+          <div className="bg-white rounded-xl shadow-xl border border-[#E8E2D8] w-full max-w-md overflow-hidden">
+            <div className="px-6 py-4 border-b border-[#E8E2D8] flex items-center justify-between bg-[#FAF8F5]">
               <div className="flex items-center gap-2">
-                <div className="p-1.5 bg-amber-50 text-amber-800 rounded-lg border border-amber-200">
-                  <Lock className="w-4 h-4 text-amber-700" />
+                <div className="p-1.5 bg-[#FDF2F4] text-[#880E23] rounded-lg border border-[#F8CAD1]">
+                  <Lock className="w-4 h-4 text-[#880E23]" />
                 </div>
-                <h3 className="font-bold text-slate-900 text-sm">Privilege Restriction Policy</h3>
+                <h3 className="font-bold text-[#2D2526] text-sm">Privilege Restriction Policy</h3>
               </div>
-              <button onClick={() => setShowPolicyModal(false)} className="text-slate-400 hover:text-slate-600">
+              <button onClick={() => setShowPolicyModal(false)} className="text-[#A89B85] hover:text-[#2D2526] transition-colors">
                 ✕
               </button>
             </div>
 
-            <div className="p-6 space-y-4 text-xs text-slate-600">
-              <p className="font-semibold text-slate-800 text-sm">
+            <div className="p-6 space-y-4 text-xs text-[#5A504E]">
+              <p className="font-semibold text-[#2D2526] text-sm">
                 Only the Super Admin can create and onboard new employees.
               </p>
               <p className="leading-relaxed">
                 Under the platform's security and organizational hierarchy:
               </p>
-              <ul className="list-disc list-inside space-y-1.5 text-slate-700 pl-1">
-                <li><strong className="text-slate-900">Super Admin</strong> has exclusive authority to register employee records, establish bank details, assign supervisors, and pair Android devices.</li>
-                <li><strong className="text-slate-900">Sub-Admins</strong> supervise assigned staff, review field punches, verify UPI proof receipts, and allocate operational capital.</li>
+              <ul className="list-disc list-inside space-y-1.5 text-[#5A504E] pl-1">
+                <li><strong className="text-[#2D2526]">Super Admin</strong> has exclusive authority to register employee records, establish bank details, assign supervisors, and pair Android devices.</li>
+                <li><strong className="text-[#2D2526]">Sub-Admins</strong> supervise assigned staff, review field punches, verify UPI proof receipts, and allocate operational capital.</li>
               </ul>
-              <div className="p-3 bg-slate-50 rounded-lg border border-slate-200 text-[11px] text-slate-500">
+              <div className="p-3 bg-[#FAF8F5] rounded-lg border border-[#E8E2D8] text-[11px] text-[#74675B]">
                 To onboard new staff for your regional hub, please submit an onboarding ticket to the Global Super Admin.
               </div>
             </div>
 
-            <div className="px-6 py-3.5 bg-slate-50 border-t border-slate-200 flex justify-end">
+            <div className="px-6 py-3.5 bg-[#FAF8F5] border-t border-[#E8E2D8] flex justify-end">
               <button
                 onClick={() => setShowPolicyModal(false)}
-                className="px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white rounded-lg text-xs font-semibold"
+                className="px-4 py-2 bg-[#880E23] hover:bg-[#6B081A] text-white rounded-lg text-xs font-semibold shadow-xs transition-colors"
               >
                 Understood
               </button>

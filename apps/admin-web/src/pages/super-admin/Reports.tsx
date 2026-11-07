@@ -240,7 +240,7 @@ export const Reports: React.FC = () => {
                 <button
                   onClick={() => triggerExport(rc.type)}
                   disabled={loading}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-teal-600 hover:bg-teal-700 text-white rounded-lg text-xs font-semibold shadow-2xs transition-colors disabled:opacity-50"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#880E23] hover:bg-[#6B081A] text-white rounded-lg text-xs font-semibold shadow-xs transition-colors disabled:opacity-50"
                 >
                   <Download className="w-3.5 h-3.5" />
                   Export Report

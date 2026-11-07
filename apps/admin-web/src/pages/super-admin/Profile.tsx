@@ -41,14 +41,14 @@ export const Profile: React.FC = () => {
 
       {/* Profile Overview Card */}
       <div className="bg-white rounded-xl border border-slate-200/80 p-6 shadow-xs space-y-6">
-        <div className="flex items-center gap-4 pb-6 border-b border-slate-100">
-          <div className="w-16 h-16 rounded-2xl bg-teal-600 text-white font-extrabold flex items-center justify-center text-2xl shadow-sm">
+        <div className="flex items-center gap-4 pb-6 border-b border-[#E8E2D8]">
+          <div className="w-16 h-16 rounded-2xl bg-[#880E23] text-white font-extrabold flex items-center justify-center text-2xl shadow-sm">
             {user?.name.charAt(0)}
           </div>
           <div>
-            <h3 className="text-lg font-bold text-slate-900">{user?.name}</h3>
-            <p className="text-xs text-slate-500 flex items-center gap-1.5 mt-0.5">
-              <span className="font-semibold text-teal-700 bg-teal-50 px-2 py-0.5 rounded border border-teal-100">
+            <h3 className="text-lg font-bold text-[#2D2526]">{user?.name}</h3>
+            <p className="text-xs text-[#74675B] flex items-center gap-1.5 mt-0.5">
+              <span className="font-semibold text-[#880E23] bg-[#FDF2F4] px-2 py-0.5 rounded border border-[#F8CAD1]">
                 {user?.role.replace('_', ' ')}
               </span>
               <span>·</span>
@@ -135,7 +135,7 @@ export const Profile: React.FC = () => {
 
             <button
               type="submit"
-              className="px-5 py-2 bg-slate-800 hover:bg-slate-900 text-white font-semibold rounded-lg shadow-xs transition-colors"
+              className="px-5 py-2 bg-[#880E23] hover:bg-[#6B081A] text-white font-semibold rounded-lg shadow-xs transition-colors"
             >
               Update Password
             </button>

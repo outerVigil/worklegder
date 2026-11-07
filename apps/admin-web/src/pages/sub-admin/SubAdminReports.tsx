@@ -107,63 +107,63 @@ export const SubAdminReports: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-        <div className="bg-white rounded-xl border border-slate-200/80 p-5 shadow-xs flex flex-col justify-between">
+        <div className="bg-white rounded-xl border border-[#E8E2D8] p-5 shadow-xs flex flex-col justify-between">
           <div>
-            <div className="p-2.5 rounded-lg bg-teal-50 text-teal-700 w-fit mb-3">
+            <div className="p-2.5 rounded-lg bg-[#FDF2F4] text-[#880E23] w-fit mb-3 border border-[#F8CAD1]">
               <Users className="w-5 h-5" />
             </div>
-            <h3 className="font-bold text-slate-900 text-sm">Assigned Workforce Roster</h3>
-            <p className="text-xs text-slate-500 mt-1">
+            <h3 className="font-bold text-[#2D2526] text-sm">Assigned Workforce Roster</h3>
+            <p className="text-xs text-[#74675B] mt-1">
               Complete list of employees assigned to your hub including available balances and attendance.
             </p>
           </div>
-          <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between">
-            <span className="text-[11px] text-slate-400">{employees.length} Personnel</span>
+          <div className="mt-5 pt-3 border-t border-[#EBE5DB] flex items-center justify-between">
+            <span className="text-[11px] text-[#A89B85]">{employees.length} Personnel</span>
             <button
               onClick={() => triggerExport('EMPLOYEES')}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-teal-600 hover:bg-teal-700 text-white rounded-lg text-xs font-semibold"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#880E23] hover:bg-[#6B081A] text-white rounded-lg text-xs font-semibold shadow-xs transition-colors"
             >
               <Download className="w-3.5 h-3.5" /> Export Excel
             </button>
           </div>
         </div>
 
-        <div className="bg-white rounded-xl border border-slate-200/80 p-5 shadow-xs flex flex-col justify-between">
+        <div className="bg-white rounded-xl border border-[#E8E2D8] p-5 shadow-xs flex flex-col justify-between">
           <div>
-            <div className="p-2.5 rounded-lg bg-emerald-50 text-emerald-700 w-fit mb-3">
+            <div className="p-2.5 rounded-lg bg-[#FDF2F4] text-[#880E23] w-fit mb-3 border border-[#F8CAD1]">
               <CalendarCheck className="w-5 h-5" />
             </div>
-            <h3 className="font-bold text-slate-900 text-sm">Team Punch &amp; Attendance Logs</h3>
-            <p className="text-xs text-slate-500 mt-1">
+            <h3 className="font-bold text-[#2D2526] text-sm">Team Punch &amp; Attendance Logs</h3>
+            <p className="text-xs text-[#74675B] mt-1">
               Field punch timestamps, registered GPS locations, and geofence accuracy records.
             </p>
           </div>
-          <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between">
-            <span className="text-[11px] text-slate-400">{punches.length} Logs</span>
+          <div className="mt-5 pt-3 border-t border-[#EBE5DB] flex items-center justify-between">
+            <span className="text-[11px] text-[#A89B85]">{punches.length} Logs</span>
             <button
               onClick={() => triggerExport('PUNCHES')}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-teal-600 hover:bg-teal-700 text-white rounded-lg text-xs font-semibold"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#880E23] hover:bg-[#6B081A] text-white rounded-lg text-xs font-semibold shadow-xs transition-colors"
             >
               <Download className="w-3.5 h-3.5" /> Export Excel
             </button>
           </div>
         </div>
 
-        <div className="bg-white rounded-xl border border-slate-200/80 p-5 shadow-xs flex flex-col justify-between">
+        <div className="bg-white rounded-xl border border-[#E8E2D8] p-5 shadow-xs flex flex-col justify-between">
           <div>
-            <div className="p-2.5 rounded-lg bg-amber-50 text-amber-700 w-fit mb-3">
+            <div className="p-2.5 rounded-lg bg-[#FAF8F5] text-[#880E23] w-fit mb-3 border border-[#E8E2D8]">
               <DollarSign className="w-5 h-5" />
             </div>
-            <h3 className="font-bold text-slate-900 text-sm">Claims &amp; Entry Submissions</h3>
-            <p className="text-xs text-slate-500 mt-1">
+            <h3 className="font-bold text-[#2D2526] text-sm">Claims &amp; Entry Submissions</h3>
+            <p className="text-xs text-[#74675B] mt-1">
               Audit report of all pending, approved, and rejected entries with bank accounts and RRN references.
             </p>
           </div>
-          <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between">
-            <span className="text-[11px] text-slate-400">{entries.length} Claims</span>
+          <div className="mt-5 pt-3 border-t border-[#EBE5DB] flex items-center justify-between">
+            <span className="text-[11px] text-[#A89B85]">{entries.length} Claims</span>
             <button
               onClick={() => triggerExport('ENTRIES')}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-teal-600 hover:bg-teal-700 text-white rounded-lg text-xs font-semibold"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#880E23] hover:bg-[#6B081A] text-white rounded-lg text-xs font-semibold shadow-xs transition-colors"
             >
               <Download className="w-3.5 h-3.5" /> Export Excel
             </button>

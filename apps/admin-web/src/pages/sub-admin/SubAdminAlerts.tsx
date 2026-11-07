@@ -129,7 +129,7 @@ export const SubAdminAlerts: React.FC = () => {
                   ) : (
                     <button
                       onClick={() => handleReview(alt.id)}
-                      className="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-900 text-white rounded-lg text-xs font-semibold shadow-xs transition-colors"
+                      className="px-3.5 py-1.5 bg-[#880E23] hover:bg-[#6B081A] text-white rounded-lg text-xs font-semibold shadow-xs transition-colors"
                     >
                       Mark as Reviewed
                     </button>

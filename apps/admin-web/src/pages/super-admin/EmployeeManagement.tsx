@@ -154,7 +154,7 @@ export const GlobalEmployeeManagement: React.FC = () => {
 
           <button
             onClick={() => setIsCreateModalOpen(true)}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white rounded-lg text-xs font-semibold shadow-xs transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-[#880E23] hover:bg-[#6B081A] text-white rounded-lg text-xs font-semibold shadow-xs transition-colors"
           >
             <Plus className="w-4 h-4" />
             Onboard New Employee
@@ -350,19 +350,19 @@ export const GlobalEmployeeManagement: React.FC = () => {
 
       {/* Onboard Employee Modal */}
       {isCreateModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4 animate-in fade-in">
-          <div className="bg-white rounded-xl shadow-xl border border-slate-200 w-full max-w-lg overflow-hidden">
-            <div className="px-6 py-4 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#2D040A]/60 backdrop-blur-xs p-4 animate-in fade-in">
+          <div className="bg-white rounded-xl shadow-xl border border-[#E8E2D8] w-full max-w-lg overflow-hidden">
+            <div className="px-6 py-4 border-b border-[#E8E2D8] flex items-center justify-between bg-[#FAF8F5]">
               <div className="flex items-center gap-2">
-                <div className="p-1.5 bg-teal-50 text-teal-700 rounded-lg border border-teal-100">
+                <div className="p-1.5 bg-[#FDF2F4] text-[#880E23] rounded-lg border border-[#F8CAD1]">
                   <ShieldCheck className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900 text-sm">Onboard Field Employee</h3>
-                  <p className="text-[10px] text-slate-500">Super Admin Exclusive Privilege · Enforced via RBAC</p>
+                  <h3 className="font-bold text-[#2D2526] text-sm">Onboard Field Employee</h3>
+                  <p className="text-[10px] text-[#74675B]">Super Admin Exclusive Privilege · Enforced via RBAC</p>
                 </div>
               </div>
-              <button onClick={() => setIsCreateModalOpen(false)} className="text-slate-400 hover:text-slate-600">
+              <button onClick={() => setIsCreateModalOpen(false)} className="text-[#A89B85] hover:text-[#2D2526] transition-colors">
                 ✕
               </button>
             </div>
@@ -469,14 +469,14 @@ export const GlobalEmployeeManagement: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setIsCreateModalOpen(false)}
-                  className="px-4 py-2 border border-slate-300 rounded-lg text-slate-700 font-semibold"
+                  className="px-4 py-2 border border-[#DDD5C7] rounded-lg text-[#5A504E] font-semibold hover:bg-[#FAF8F5] transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={creating}
-                  className="px-5 py-2 bg-teal-600 hover:bg-teal-700 text-white font-semibold rounded-lg shadow-xs disabled:opacity-50"
+                  className="px-5 py-2 bg-[#880E23] hover:bg-[#6B081A] text-white font-semibold rounded-lg shadow-xs disabled:opacity-50 transition-colors"
                 >
                   {creating ? 'Saving...' : 'Register Employee'}
                 </button>

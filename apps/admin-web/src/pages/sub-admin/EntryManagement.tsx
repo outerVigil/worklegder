@@ -148,15 +148,15 @@ export const SubAdminEntryManagement: React.FC = () => {
       )}
 
       {/* Tabs and Search Bar */}
-      <div className="bg-white rounded-xl border border-slate-200/80 shadow-xs p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div className="bg-white rounded-xl border border-[#E8E2D8] shadow-xs p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
         {/* Tabs */}
-        <div className="flex items-center gap-1.5 p-1 bg-slate-100 rounded-lg w-full sm:w-auto">
+        <div className="flex items-center gap-1.5 p-1 bg-[#EBE5DB] rounded-lg w-full sm:w-auto">
           <button
             onClick={() => setActiveTab('PENDING')}
             className={`px-4 py-2 text-xs font-semibold rounded-md transition-all ${
               activeTab === 'PENDING'
-                ? 'bg-white text-slate-900 shadow-xs'
-                : 'text-slate-600 hover:text-slate-900'
+                ? 'bg-[#880E23] text-white shadow-xs'
+                : 'text-[#685E4E] hover:text-[#2D2526]'
             }`}
           >
             Pending ({entries.filter((e) => e.status === 'PENDING').length})
@@ -165,8 +165,8 @@ export const SubAdminEntryManagement: React.FC = () => {
             onClick={() => setActiveTab('APPROVED')}
             className={`px-4 py-2 text-xs font-semibold rounded-md transition-all ${
               activeTab === 'APPROVED'
-                ? 'bg-white text-slate-900 shadow-xs'
-                : 'text-slate-600 hover:text-slate-900'
+                ? 'bg-[#880E23] text-white shadow-xs'
+                : 'text-[#685E4E] hover:text-[#2D2526]'
             }`}
           >
             Approved ({entries.filter((e) => e.status === 'APPROVED').length})
@@ -175,8 +175,8 @@ export const SubAdminEntryManagement: React.FC = () => {
             onClick={() => setActiveTab('REJECTED')}
             className={`px-4 py-2 text-xs font-semibold rounded-md transition-all ${
               activeTab === 'REJECTED'
-                ? 'bg-white text-slate-900 shadow-xs'
-                : 'text-slate-600 hover:text-slate-900'
+                ? 'bg-[#880E23] text-white shadow-xs'
+                : 'text-[#685E4E] hover:text-[#2D2526]'
             }`}
           >
             Rejected ({entries.filter((e) => e.status === 'REJECTED').length})
@@ -185,21 +185,21 @@ export const SubAdminEntryManagement: React.FC = () => {
 
         {/* Search */}
         <div className="relative w-full sm:w-72">
-          <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+          <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[#A89B85]" />
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search reference, employee, bank..."
-            className="w-full pl-9 pr-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
+            className="w-full pl-9 pr-3 py-2 text-xs bg-[#FAF8F5] border border-[#DDD5C7] text-[#2D2526] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#880E23]"
           />
         </div>
       </div>
 
       {/* Entries Table */}
-      <div className="bg-white rounded-xl border border-slate-200/80 overflow-hidden shadow-xs">
+      <div className="bg-white rounded-xl border border-[#E8E2D8] overflow-hidden shadow-xs">
         <table className="w-full text-left text-xs">
-          <thead className="bg-slate-50 border-b border-slate-200 text-slate-500 font-semibold uppercase tracking-wider">
+          <thead className="bg-[#FAF8F5] border-b border-[#E8E2D8] text-[#74675B] font-semibold uppercase tracking-wider">
             <tr>
               <th className="py-3 px-4">Employee</th>
               <th className="py-3 px-4">UPI Ref ID</th>
@@ -210,7 +210,7 @@ export const SubAdminEntryManagement: React.FC = () => {
               <th className="py-3 px-4 text-right">Review Actions</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100 text-slate-700">
+          <tbody className="divide-y divide-[#EBE5DB] text-[#2D2526]">
             {loading ? (
               <tr>
                 <td colSpan={7} className="py-12 text-center text-slate-400">
@@ -296,13 +296,13 @@ export const SubAdminEntryManagement: React.FC = () => {
                         <div className="inline-flex items-center gap-1.5">
                           <button
                             onClick={() => setEntryToApprove(entry)}
-                            className="inline-flex items-center gap-1 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-semibold shadow-xs transition-colors"
+                            className="inline-flex items-center gap-1 px-3 py-1.5 bg-[#880E23] hover:bg-[#6B081A] text-white rounded-lg text-xs font-semibold shadow-xs transition-colors"
                           >
                             <CheckCircle2 className="w-3.5 h-3.5" /> Approve
                           </button>
                           <button
                             onClick={() => setEntryToReject(entry)}
-                            className="inline-flex items-center gap-1 px-3 py-1.5 border border-rose-200 text-rose-700 hover:bg-rose-50 rounded-lg text-xs font-semibold transition-colors"
+                            className="inline-flex items-center gap-1 px-3 py-1.5 border border-[#DDD5C7] text-[#880E23] hover:bg-[#FDF2F4] rounded-lg text-xs font-semibold transition-colors"
                           >
                             <XCircle className="w-3.5 h-3.5" /> Reject
                           </button>

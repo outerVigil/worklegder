@@ -76,19 +76,19 @@ export const EmployeeDashboard: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Top Welcome & Quick Punch Banner */}
-      <div className="bg-white rounded-xl border border-slate-200/80 p-6 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-white rounded-xl border border-[#E8E2D8] p-6 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2.5">
-            <h2 className="text-xl font-bold text-slate-900 tracking-tight">
+            <h2 className="text-xl font-bold text-[#2D2526] tracking-tight">
               Welcome back, {employee.name}
             </h2>
             <StatusBadge status={employee.attendanceToday} size="sm" />
           </div>
-          <p className="text-xs text-slate-500 mt-1 flex flex-wrap items-center gap-x-3 gap-y-1">
-            <span className="font-mono font-semibold text-slate-700">{employee.employeeCode}</span>
+          <p className="text-xs text-[#74675B] mt-1 flex flex-wrap items-center gap-x-3 gap-y-1">
+            <span className="font-mono font-semibold text-[#2D2526]">{employee.employeeCode}</span>
             <span>·</span>
             <span className="flex items-center gap-1">
-              <MapPin className="w-3.5 h-3.5 text-teal-600" />
+              <MapPin className="w-3.5 h-3.5 text-[#880E23]" />
               {employee.assignedLocation.name}
             </span>
             <span>·</span>
@@ -101,7 +101,7 @@ export const EmployeeDashboard: React.FC = () => {
             <button
               onClick={() => handleQuickPunch('CHECK_IN')}
               disabled={punching}
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold rounded-lg shadow-xs transition-colors disabled:opacity-50"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#880E23] hover:bg-[#6B081A] text-white text-xs font-bold rounded-lg shadow-xs transition-colors disabled:opacity-50"
             >
               <LogIn className="w-4 h-4" />
               {punching ? 'Recording...' : 'Punch Check-In'}
@@ -110,7 +110,7 @@ export const EmployeeDashboard: React.FC = () => {
             <button
               onClick={() => handleQuickPunch('CHECK_OUT')}
               disabled={punching}
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded-lg shadow-xs transition-colors disabled:opacity-50"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#4E0512] hover:bg-[#3B030B] text-white text-xs font-bold rounded-lg shadow-xs transition-colors disabled:opacity-50"
             >
               <LogOut className="w-4 h-4" />
               {punching ? 'Recording...' : 'Punch Check-Out'}

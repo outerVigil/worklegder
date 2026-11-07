@@ -263,7 +263,7 @@ export const SubAdminMoneyAndBalance: React.FC = () => {
             <button
               type="submit"
               disabled={allocating || !selectedEmpId}
-              className="w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-lg shadow-xs transition-colors disabled:opacity-50"
+              className="w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-[#880E23] hover:bg-[#6B081A] text-white font-bold rounded-lg shadow-xs transition-colors disabled:opacity-50"
             >
               {allocating ? 'Processing Allocation...' : 'Confirm Working Capital Allocation'}
               {!allocating && <Send className="w-3.5 h-3.5" />}
@@ -272,22 +272,22 @@ export const SubAdminMoneyAndBalance: React.FC = () => {
         </div>
 
         {/* Selected Employee Transaction Statement */}
-        <div className="lg:col-span-7 bg-white rounded-xl border border-slate-200/80 shadow-xs overflow-hidden flex flex-col">
-          <div className="p-4 border-b border-slate-100 flex items-center justify-between">
+        <div className="lg:col-span-7 bg-white rounded-xl border border-[#E8E2D8] shadow-xs overflow-hidden flex flex-col">
+          <div className="p-4 border-b border-[#E8E2D8] flex items-center justify-between bg-[#FAF8F5]">
             <div>
-              <h3 className="font-bold text-slate-900 text-sm">
+              <h3 className="font-bold text-[#2D2526] text-sm">
                 Financial Statement: {selectedEmployee ? selectedEmployee.name : 'Employee'}
               </h3>
-              <p className="text-xs text-slate-500">Chronological ledger transactions for selected agent</p>
+              <p className="text-xs text-[#74675B]">Chronological ledger transactions for selected agent</p>
             </div>
-            <span className="text-xs font-mono font-bold text-teal-700 bg-teal-50 px-2.5 py-1 rounded border border-teal-100">
+            <span className="text-xs font-mono font-bold text-[#880E23] bg-[#FDF2F4] px-2.5 py-1 rounded border border-[#F8CAD1]">
               Bal: ₹{selectedEmployee ? selectedEmployee.availableBalance.toLocaleString() : 0}
             </span>
           </div>
 
           <div className="flex-1 overflow-y-auto max-h-[460px]">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-50 border-b border-slate-200 text-slate-500 font-semibold uppercase tracking-wider sticky top-0">
+              <thead className="bg-[#FAF8F5] border-b border-[#E8E2D8] text-[#74675B] font-semibold uppercase tracking-wider sticky top-0">
                 <tr>
                   <th className="py-2.5 px-3">Date</th>
                   <th className="py-2.5 px-3">Type</th>

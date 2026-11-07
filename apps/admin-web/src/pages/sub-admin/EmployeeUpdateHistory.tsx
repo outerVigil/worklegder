@@ -159,13 +159,13 @@ export const SubAdminEmployeeUpdateHistory: React.FC = () => {
                         <div className="inline-flex items-center gap-1.5">
                           <button
                             onClick={() => handleReview(log.id, 'APPROVED')}
-                            className="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded text-[11px] font-semibold"
+                            className="px-2.5 py-1 bg-[#880E23] hover:bg-[#6B081A] text-white rounded text-[11px] font-semibold shadow-xs transition-colors"
                           >
                             Approve
                           </button>
                           <button
                             onClick={() => handleReview(log.id, 'DISMISSED')}
-                            className="px-2.5 py-1 border border-slate-200 hover:bg-slate-100 text-slate-700 rounded text-[11px] font-semibold"
+                            className="px-2.5 py-1 border border-[#DDD5C7] hover:bg-[#FAF8F5] text-[#5A504E] rounded text-[11px] font-semibold transition-colors"
                           >
                             Dismiss
                           </button>

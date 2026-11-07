@@ -112,7 +112,7 @@ export const SubAdminManagement: React.FC = () => {
 
         <button
           onClick={() => setIsCreateSubAdminOpen(true)}
-          className="inline-flex items-center gap-2 px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white rounded-lg text-xs font-semibold shadow-xs transition-colors"
+          className="inline-flex items-center gap-2 px-4 py-2 bg-[#880E23] hover:bg-[#6B081A] text-white rounded-lg text-xs font-semibold shadow-xs transition-colors"
         >
           <UserPlus className="w-4 h-4" />
           Add Regional Sub-Admin
@@ -242,27 +242,27 @@ export const SubAdminManagement: React.FC = () => {
 
       {/* Assign Employee to Sub-Admin Modal */}
       {isAssignModalOpen && selectedSubAdmin && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4 animate-in fade-in">
-          <div className="bg-white rounded-xl shadow-xl border border-slate-200 w-full max-w-md overflow-hidden">
-            <div className="px-6 py-4 border-b border-slate-200 flex items-center justify-between bg-slate-50">
-              <h3 className="font-bold text-slate-900 text-sm">Assign Employee to Sub-Admin</h3>
-              <button onClick={() => setIsAssignModalOpen(false)} className="text-slate-400 hover:text-slate-600">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#2D040A]/60 backdrop-blur-xs p-4 animate-in fade-in">
+          <div className="bg-white rounded-xl shadow-xl border border-[#E8E2D8] w-full max-w-md overflow-hidden">
+            <div className="px-6 py-4 border-b border-[#E8E2D8] flex items-center justify-between bg-[#FAF8F5]">
+              <h3 className="font-bold text-[#2D2526] text-sm">Assign Employee to Sub-Admin</h3>
+              <button onClick={() => setIsAssignModalOpen(false)} className="text-[#A89B85] hover:text-[#2D2526] transition-colors">
                 ✕
               </button>
             </div>
 
             <div className="p-6 space-y-4 text-xs">
-              <div className="p-3 bg-teal-50 border border-teal-100 rounded-lg text-teal-900">
+              <div className="p-3 bg-[#FDF2F4] border border-[#F8CAD1] rounded-lg text-[#880E23]">
                 <span className="font-bold block">Target Supervisor:</span>
                 <span>{selectedSubAdmin.name} ({selectedSubAdmin.region})</span>
               </div>
 
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">Select Employee to Reassign</label>
+                <label className="block font-semibold text-[#5A504E] mb-1">Select Employee to Reassign</label>
                 <select
                   value={selectedEmployeeToAssign}
                   onChange={(e) => setSelectedEmployeeToAssign(e.target.value)}
-                  className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 bg-white"
+                  className="w-full px-3 py-2 border border-[#DDD5C7] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#880E23] bg-white text-[#2D2526]"
                 >
                   <option value="">-- Choose an employee --</option>
                   {allEmployees.map((emp) => (
@@ -273,11 +273,11 @@ export const SubAdminManagement: React.FC = () => {
                 </select>
               </div>
 
-              <div className="pt-4 border-t border-slate-100 flex justify-end gap-3">
+              <div className="pt-4 border-t border-[#EBE5DB] flex justify-end gap-3">
                 <button
                   type="button"
                   onClick={() => setIsAssignModalOpen(false)}
-                  className="px-4 py-2 border border-slate-300 rounded-lg text-slate-700 font-semibold"
+                  className="px-4 py-2 border border-[#DDD5C7] rounded-lg text-[#5A504E] font-semibold hover:bg-[#FAF8F5] transition-colors"
                 >
                   Cancel
                 </button>
@@ -285,7 +285,7 @@ export const SubAdminManagement: React.FC = () => {
                   type="button"
                   disabled={!selectedEmployeeToAssign || assigning}
                   onClick={handleAssignEmployee}
-                  className="px-5 py-2 bg-teal-600 hover:bg-teal-700 text-white font-semibold rounded-lg shadow-xs disabled:opacity-50"
+                  className="px-5 py-2 bg-[#880E23] hover:bg-[#6B081A] text-white font-semibold rounded-lg shadow-xs disabled:opacity-50 transition-colors"
                 >
                   {assigning ? 'Assigning...' : 'Confirm Assignment'}
                 </button>
@@ -297,23 +297,23 @@ export const SubAdminManagement: React.FC = () => {
 
       {/* Sub-Admin Employee Roster Modal */}
       {isDetailsModalOpen && selectedSubAdmin && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4 animate-in fade-in">
-          <div className="bg-white rounded-xl shadow-xl border border-slate-200 w-full max-w-2xl overflow-hidden">
-            <div className="px-6 py-4 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#2D040A]/60 backdrop-blur-xs p-4 animate-in fade-in">
+          <div className="bg-white rounded-xl shadow-xl border border-[#E8E2D8] w-full max-w-2xl overflow-hidden">
+            <div className="px-6 py-4 border-b border-[#E8E2D8] flex items-center justify-between bg-[#FAF8F5]">
               <div>
-                <h3 className="font-bold text-slate-900 text-sm">
+                <h3 className="font-bold text-[#2D2526] text-sm">
                   {selectedSubAdmin.name}'s Assigned Workforce
                 </h3>
-                <p className="text-xs text-slate-500">{selectedSubAdmin.region}</p>
+                <p className="text-xs text-[#74675B]">{selectedSubAdmin.region}</p>
               </div>
-              <button onClick={() => setIsDetailsModalOpen(false)} className="text-slate-400 hover:text-slate-600">
+              <button onClick={() => setIsDetailsModalOpen(false)} className="text-[#A89B85] hover:text-[#2D2526] transition-colors">
                 ✕
               </button>
             </div>
 
             <div className="p-6">
               <table className="w-full text-left text-xs">
-                <thead className="bg-slate-50 border-b border-slate-200 text-slate-500 font-semibold uppercase">
+                <thead className="bg-[#FAF8F5] border-b border-[#E8E2D8] text-[#74675B] font-semibold uppercase">
                   <tr>
                     <th className="py-2.5 px-3">Employee Name</th>
                     <th className="py-2.5 px-3">Code</th>
@@ -321,12 +321,12 @@ export const SubAdminManagement: React.FC = () => {
                     <th className="py-2.5 px-3">Status</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
+                <tbody className="divide-y divide-[#EBE5DB]">
                   {selectedSubAdmin.assignedEmployees.map((emp) => (
-                    <tr key={emp.id} className="hover:bg-slate-50">
-                      <td className="py-2.5 px-3 font-semibold text-slate-900">{emp.name}</td>
-                      <td className="py-2.5 px-3 font-mono text-slate-500">{emp.code}</td>
-                      <td className="py-2.5 px-3 font-bold text-teal-700">₹{emp.balance.toLocaleString()}</td>
+                    <tr key={emp.id} className="hover:bg-[#FAF8F5] transition-colors">
+                      <td className="py-2.5 px-3 font-semibold text-[#2D2526]">{emp.name}</td>
+                      <td className="py-2.5 px-3 font-mono text-[#74675B]">{emp.code}</td>
+                      <td className="py-2.5 px-3 font-bold text-[#880E23]">₹{emp.balance.toLocaleString()}</td>
                       <td className="py-2.5 px-3">
                         <StatusBadge status={emp.status} size="sm" />
                       </td>
@@ -336,10 +336,10 @@ export const SubAdminManagement: React.FC = () => {
               </table>
             </div>
 
-            <div className="px-6 py-3 bg-slate-50 border-t border-slate-200 flex justify-end">
+            <div className="px-6 py-3 bg-[#FAF8F5] border-t border-[#E8E2D8] flex justify-end">
               <button
                 onClick={() => setIsDetailsModalOpen(false)}
-                className="px-4 py-2 bg-slate-800 text-white rounded-lg text-xs font-semibold"
+                className="px-4 py-2 bg-[#880E23] hover:bg-[#6B081A] text-white rounded-lg text-xs font-semibold shadow-xs transition-colors"
               >
                 Close
               </button>
@@ -350,74 +350,74 @@ export const SubAdminManagement: React.FC = () => {
 
       {/* Create Sub-Admin Modal */}
       {isCreateSubAdminOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4 animate-in fade-in">
-          <div className="bg-white rounded-xl shadow-xl border border-slate-200 w-full max-w-md overflow-hidden">
-            <div className="px-6 py-4 border-b border-slate-200 flex items-center justify-between bg-slate-50">
-              <h3 className="font-bold text-slate-900 text-sm">Add Sub-Admin Hub Lead</h3>
-              <button onClick={() => setIsCreateSubAdminOpen(false)} className="text-slate-400 hover:text-slate-600">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#2D040A]/60 backdrop-blur-xs p-4 animate-in fade-in">
+          <div className="bg-white rounded-xl shadow-xl border border-[#E8E2D8] w-full max-w-md overflow-hidden">
+            <div className="px-6 py-4 border-b border-[#E8E2D8] flex items-center justify-between bg-[#FAF8F5]">
+              <h3 className="font-bold text-[#2D2526] text-sm">Add Sub-Admin Hub Lead</h3>
+              <button onClick={() => setIsCreateSubAdminOpen(false)} className="text-[#A89B85] hover:text-[#2D2526] transition-colors">
                 ✕
               </button>
             </div>
 
             <form onSubmit={handleCreateSubAdmin} className="p-6 space-y-4 text-xs">
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">Full Name *</label>
+                <label className="block font-semibold text-[#5A504E] mb-1">Full Name *</label>
                 <input
                   type="text"
                   required
                   value={newName}
                   onChange={(e) => setNewName(e.target.value)}
                   placeholder="e.g. Liam Gallagher"
-                  className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  className="w-full px-3 py-2 border border-[#DDD5C7] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#880E23] bg-white text-[#2D2526]"
                 />
               </div>
 
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">Email Address *</label>
+                <label className="block font-semibold text-[#5A504E] mb-1">Email Address *</label>
                 <input
                   type="email"
                   required
                   value={newEmail}
                   onChange={(e) => setNewEmail(e.target.value)}
                   placeholder="e.g. subadmin.east@enterprise.com"
-                  className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  className="w-full px-3 py-2 border border-[#DDD5C7] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#880E23] bg-white text-[#2D2526]"
                 />
               </div>
 
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">Assigned Region / Zone *</label>
+                <label className="block font-semibold text-[#5A504E] mb-1">Assigned Region / Zone *</label>
                 <input
                   type="text"
                   required
                   value={newRegion}
                   onChange={(e) => setNewRegion(e.target.value)}
                   placeholder="e.g. East Coast Distribution Hub"
-                  className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  className="w-full px-3 py-2 border border-[#DDD5C7] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#880E23] bg-white text-[#2D2526]"
                 />
               </div>
 
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">Phone Number</label>
+                <label className="block font-semibold text-[#5A504E] mb-1">Phone Number</label>
                 <input
                   type="text"
                   value={newPhone}
                   onChange={(e) => setNewPhone(e.target.value)}
                   placeholder="+1 (555) 019-8812"
-                  className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  className="w-full px-3 py-2 border border-[#DDD5C7] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#880E23] bg-white text-[#2D2526]"
                 />
               </div>
 
-              <div className="pt-4 border-t border-slate-100 flex justify-end gap-3">
+              <div className="pt-4 border-t border-[#EBE5DB] flex justify-end gap-3">
                 <button
                   type="button"
                   onClick={() => setIsCreateSubAdminOpen(false)}
-                  className="px-4 py-2 border border-slate-300 rounded-lg text-slate-700 font-semibold"
+                  className="px-4 py-2 border border-[#DDD5C7] rounded-lg text-[#5A504E] font-semibold hover:bg-[#FAF8F5] transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 bg-teal-600 hover:bg-teal-700 text-white font-semibold rounded-lg shadow-xs"
+                  className="px-5 py-2 bg-[#880E23] hover:bg-[#6B081A] text-white font-semibold rounded-lg shadow-xs transition-colors"
                 >
                   Create Sub-Admin
                 </button>

@@ -57,17 +57,17 @@ export const SubAdminOverview: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Sub-Admin Regional Header Banner */}
-      <div className="bg-gradient-to-r from-slate-900 via-slate-850 to-slate-800 rounded-2xl p-6 text-white shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="bg-gradient-to-r from-[#3B030B] via-[#4D0612] to-[#2B0308] border border-[#5C0A18] rounded-2xl p-6 text-white shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-teal-400 font-mono text-[11px] uppercase tracking-wider font-semibold">
+            <span className="text-[#F29CA9] font-mono text-[11px] uppercase tracking-wider font-semibold">
               REGIONAL SUPERVISORY DESK
             </span>
-            <span className="text-slate-400 text-xs">·</span>
-            <span className="text-xs text-slate-300 font-semibold">{user?.region || 'Designated Region'}</span>
+            <span className="text-[#EBE5DB] text-xs">·</span>
+            <span className="text-xs text-[#EBE5DB] font-semibold">{user?.region || 'Designated Region'}</span>
           </div>
           <h2 className="text-xl font-bold mt-1 tracking-tight">Hub Operations Dashboard</h2>
-          <p className="text-xs text-slate-300 mt-1">
+          <p className="text-xs text-[#EBE5DB] mt-1">
             Managing {metrics.totalEmployees} assigned employees. You have {metrics.pendingEntries} pending entry claims requiring review.
           </p>
         </div>
@@ -75,13 +75,13 @@ export const SubAdminOverview: React.FC = () => {
         <div className="flex items-center gap-3">
           <button
             onClick={() => navigate('/admin/entries')}
-            className="px-4 py-2 bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold text-xs rounded-lg transition-colors shadow-xs flex items-center gap-1.5"
+            className="px-4 py-2 bg-[#FAF8F5] hover:bg-[#EBE5DB] text-[#3B030B] font-bold text-xs rounded-lg transition-colors shadow-xs flex items-center gap-1.5"
           >
             Review Entries ({metrics.pendingEntries})
           </button>
           <button
             onClick={() => navigate('/admin/money')}
-            className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs rounded-lg border border-slate-700 transition-colors"
+            className="px-4 py-2 bg-[#540A17] hover:bg-[#6B081A] text-[#FDF2F4] font-semibold text-xs rounded-lg border border-[#6B081A] transition-colors"
           >
             Allocate Funds
           </button>
@@ -165,54 +165,54 @@ export const SubAdminOverview: React.FC = () => {
       {/* Row 3: Pending Entry Claims Queue & Live Punches */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Pending Entry Approvals Queue */}
-        <div className="lg:col-span-7 bg-white rounded-xl border border-slate-200/80 shadow-xs overflow-hidden">
-          <div className="p-4 border-b border-slate-100 flex items-center justify-between">
+        <div className="lg:col-span-7 bg-white rounded-xl border border-[#E8E2D8] shadow-xs overflow-hidden">
+          <div className="p-4 border-b border-[#EBE5DB] flex items-center justify-between">
             <div>
-              <h3 className="font-bold text-slate-900 text-sm">Pending Entry Claims (Review Queue)</h3>
-              <p className="text-xs text-slate-500">Requires verification against uploaded payment proof</p>
+              <h3 className="font-bold text-[#2D2526] text-sm">Pending Entry Claims (Review Queue)</h3>
+              <p className="text-xs text-[#74675B]">Requires verification against uploaded payment proof</p>
             </div>
             <button
               onClick={() => navigate('/admin/entries')}
-              className="text-xs text-teal-600 font-semibold hover:underline flex items-center gap-1"
+              className="text-xs text-[#880E23] font-semibold hover:underline flex items-center gap-1"
             >
               All Entries <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </div>
 
-          <div className="divide-y divide-slate-100 text-xs">
+          <div className="divide-y divide-[#EBE5DB] text-xs">
             {pendingEntriesList.length === 0 ? (
-              <div className="py-12 text-center text-slate-400">
+              <div className="py-12 text-center text-[#877A65]">
                 All claims reviewed! No pending entries in your queue.
               </div>
             ) : (
               pendingEntriesList.map((entry: EntrySubmission) => (
-                <div key={entry.id} className="p-4 hover:bg-slate-50/80 transition-colors flex items-center justify-between gap-4">
+                <div key={entry.id} className="p-4 hover:bg-[#F5F1EB]/80 transition-colors flex items-center justify-between gap-4">
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="font-bold text-slate-900">{entry.employeeName}</span>
-                      <span className="font-mono text-[11px] text-teal-700 bg-teal-50 px-1.5 py-0.5 rounded border border-teal-100">
+                      <span className="font-bold text-[#2D2526]">{entry.employeeName}</span>
+                      <span className="font-mono text-[11px] text-[#880E23] bg-[#FDF2F4] px-1.5 py-0.5 rounded border border-[#F8CAD1]">
                         {entry.referenceId}
                       </span>
                     </div>
-                    <span className="text-slate-500 text-[11px] block mt-0.5">
+                    <span className="text-[#74675B] text-[11px] block mt-0.5">
                       Bank: {entry.bankName} (•••• {entry.bankAccountNumber.slice(-4)})
                     </span>
-                    <span className="text-[10px] text-slate-400 block mt-0.5">
+                    <span className="text-[10px] text-[#877A65] block mt-0.5">
                       Submitted: {new Date(entry.submittedAt).toLocaleTimeString()}
                     </span>
                   </div>
 
                   <div className="flex items-center gap-3">
                     <div className="text-right">
-                      <span className="font-bold text-slate-900 text-sm block">
+                      <span className="font-bold text-[#2D2526] text-sm block">
                         ₹{entry.withdrawalAmount.toLocaleString()}
                       </span>
-                      <span className="text-[10px] text-slate-400">Claim Value</span>
+                      <span className="text-[10px] text-[#877A65]">Claim Value</span>
                     </div>
 
                     <button
                       onClick={() => setSelectedEntryForProof(entry)}
-                      className="px-3 py-1.5 bg-slate-100 hover:bg-teal-50 hover:text-teal-700 text-slate-700 rounded-lg font-semibold transition-colors flex items-center gap-1"
+                      className="px-3 py-1.5 bg-[#FAF8F5] hover:bg-[#FDF2F4] hover:text-[#880E23] text-[#4E463A] border border-[#E8E2D8] rounded-lg font-semibold transition-colors flex items-center gap-1"
                     >
                       <Eye className="w-3.5 h-3.5" /> View Proof
                     </button>
@@ -224,12 +224,12 @@ export const SubAdminOverview: React.FC = () => {
         </div>
 
         {/* Live Punches for Team */}
-        <div className="lg:col-span-5 bg-white rounded-xl border border-slate-200/80 shadow-xs overflow-hidden">
-          <div className="p-4 border-b border-slate-100 flex items-center justify-between">
-            <h3 className="font-bold text-slate-900 text-sm">Assigned Team Live Punches</h3>
+        <div className="lg:col-span-5 bg-white rounded-xl border border-[#E8E2D8] shadow-xs overflow-hidden">
+          <div className="p-4 border-b border-[#EBE5DB] flex items-center justify-between">
+            <h3 className="font-bold text-[#2D2526] text-sm">Assigned Team Live Punches</h3>
             <button
               onClick={() => navigate('/admin/punches')}
-              className="text-xs text-teal-600 font-semibold hover:underline"
+              className="text-xs text-[#880E23] font-semibold hover:underline"
             >
               Punch History
             </button>

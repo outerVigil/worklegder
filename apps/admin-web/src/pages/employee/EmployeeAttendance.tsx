@@ -67,15 +67,15 @@ export const EmployeeAttendance: React.FC = () => {
       </div>
 
       {/* Punch Action Card */}
-      <div className="bg-white rounded-xl border border-slate-200/80 p-6 shadow-xs space-y-4">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-100">
+      <div className="bg-white rounded-xl border border-[#E8E2D8] p-6 shadow-xs space-y-4">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-[#EBE5DB]">
           <div className="flex items-center gap-3">
-            <div className="p-2.5 bg-teal-50 text-teal-700 rounded-lg border border-teal-100">
+            <div className="p-2.5 bg-[#FDF2F4] text-[#880E23] rounded-lg border border-[#F8CAD1]">
               <MapPin className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="font-bold text-slate-900 text-sm">Assigned Geofence Zone</h3>
-              <p className="text-xs text-slate-500">
+              <h3 className="font-bold text-[#2D2526] text-sm">Assigned Geofence Zone</h3>
+              <p className="text-xs text-[#74675B]">
                 {employee.assignedLocation.name} · Radius: {employee.assignedLocation.allowedRadiusMeters}m
               </p>
             </div>
@@ -85,7 +85,7 @@ export const EmployeeAttendance: React.FC = () => {
             <button
               onClick={() => handlePunch('CHECK_IN')}
               disabled={submitting || employee.attendanceToday === 'CHECKED_IN'}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold rounded-lg shadow-xs transition-colors disabled:opacity-40"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-[#880E23] hover:bg-[#6B081A] text-white text-xs font-bold rounded-lg shadow-xs transition-colors disabled:opacity-40"
             >
               <LogIn className="w-4 h-4" />
               Check In
@@ -93,7 +93,7 @@ export const EmployeeAttendance: React.FC = () => {
             <button
               onClick={() => handlePunch('CHECK_OUT')}
               disabled={submitting || employee.attendanceToday !== 'CHECKED_IN'}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded-lg shadow-xs transition-colors disabled:opacity-40"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-[#4A0713] hover:bg-[#3B030B] text-white text-xs font-bold rounded-lg shadow-xs transition-colors disabled:opacity-40"
             >
               <LogOut className="w-4 h-4" />
               Check Out
@@ -102,13 +102,13 @@ export const EmployeeAttendance: React.FC = () => {
         </div>
 
         <div className="text-xs">
-          <label className="block font-semibold text-slate-700 mb-1">Optional Shift / Field Note</label>
+          <label className="block font-semibold text-[#4E463A] mb-1">Optional Shift / Field Note</label>
           <input
             type="text"
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
             placeholder="e.g., Morning hub arrival, client site visit, or evening wrap-up..."
-            className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
+            className="w-full px-3 py-2 border border-[#DDD5C7] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#880E23]"
           />
         </div>
 
@@ -121,10 +121,10 @@ export const EmployeeAttendance: React.FC = () => {
       </div>
 
       {/* Punch History Table */}
-      <div className="bg-white rounded-xl border border-slate-200/80 shadow-xs overflow-hidden">
-        <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
-          <h3 className="font-bold text-slate-900 text-sm flex items-center gap-2">
-            <Clock className="w-4 h-4 text-teal-600" />
+      <div className="bg-white rounded-xl border border-[#E8E2D8] shadow-xs overflow-hidden">
+        <div className="px-6 py-4 border-b border-[#EBE5DB] flex items-center justify-between">
+          <h3 className="font-bold text-[#2D2526] text-sm flex items-center gap-2">
+            <Clock className="w-4 h-4 text-[#880E23]" />
             Personal Punch Log ({punches.length})
           </h3>
         </div>
@@ -132,7 +132,7 @@ export const EmployeeAttendance: React.FC = () => {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-200/80 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+              <tr className="bg-[#FAF8F5] border-b border-[#E8E2D8] text-[11px] font-bold text-[#74675B] uppercase tracking-wider">
                 <th className="py-3 px-4">Date &amp; Time</th>
                 <th className="py-3 px-4">Punch Type</th>
                 <th className="py-3 px-4">Verified Location</th>

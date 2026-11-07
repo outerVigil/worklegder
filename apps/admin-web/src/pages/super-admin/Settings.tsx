@@ -161,7 +161,7 @@ export const SystemSettings: React.FC = () => {
         <div className="flex justify-end">
           <button
             type="submit"
-            className="inline-flex items-center gap-2 px-6 py-2.5 bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs rounded-lg shadow-sm transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#880E23] hover:bg-[#6B081A] text-white font-bold text-xs rounded-lg shadow-xs transition-colors"
           >
             {saved ? (
               <>

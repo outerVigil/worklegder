@@ -95,12 +95,12 @@ export const EmployeeDetailModal: React.FC<EmployeeDetailModalProps> = ({
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-3 md:p-6 animate-in fade-in duration-200">
-      <div className="bg-white rounded-xl shadow-2xl border border-slate-200 w-full max-w-5xl h-[90vh] flex flex-col overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#2D040A]/60 backdrop-blur-xs p-3 md:p-6 animate-in fade-in duration-200">
+      <div className="bg-white rounded-xl shadow-2xl border border-[#E8E2D8] w-full max-w-5xl h-[90vh] flex flex-col overflow-hidden">
         {/* Header */}
-        <div className="px-6 py-4 border-b border-slate-200 flex items-center justify-between bg-slate-50 shrink-0">
+        <div className="px-6 py-4 border-b border-[#E8E2D8] flex items-center justify-between bg-[#FAF8F5] shrink-0">
           <div className="flex items-center gap-4">
-            <div className="w-11 h-11 rounded-xl bg-teal-600 text-white font-bold flex items-center justify-center text-lg shadow-xs">
+            <div className="w-11 h-11 rounded-xl bg-[#880E23] text-white font-bold flex items-center justify-center text-lg shadow-xs">
               {employee ? employee.name.charAt(0) : 'E'}
             </div>
             <div>
@@ -664,10 +664,10 @@ export const EmployeeDetailModal: React.FC<EmployeeDetailModalProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-3.5 bg-slate-50 border-t border-slate-200 flex justify-end">
+        <div className="px-6 py-3.5 bg-[#FAF8F5] border-t border-[#E8E2D8] flex justify-end">
           <button
             onClick={onClose}
-            className="px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white text-xs font-semibold rounded-lg transition-colors"
+            className="px-4 py-2 bg-[#880E23] hover:bg-[#6B081A] text-white text-xs font-semibold rounded-lg shadow-xs transition-colors"
           >
             Close Detail View
           </button>
